@@ -92,7 +92,7 @@ function autofill(root, error_redirect) {
 		}
 
 		var element = stack.pop();
-		var uri = element.dataset.source + location.search;
+		var uri = element.dataset['source'] + location.search;
 		delete element.dataset['source'];
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', uri);
