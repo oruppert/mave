@@ -25,24 +25,6 @@ function autofill(root, error_redirect) {
 		return element.parentNode.insertBefore(element.cloneNode(true), element);
 	}
 
-	function template(string, data) {
-		var subst = false;
-		var result = string.replace(/{(.+?)}/g, function(_, name) {
-			if (!data.hasOwnProperty(name))
-				return '';
-			subst = true;
-			return data[name];
-		});
-		return subst ? result : null;
-	}
-
-	function subst(string, data) {
-		if (data.hasOwnProperty(string))
-			return data[string];
-		return template(string, data);
-
-	}
-
 	function has_data_source(element) {
 		return element.dataset && element.dataset['source'];
 	}
@@ -53,15 +35,32 @@ function autofill(root, error_redirect) {
 
 	function fill(element, data) {
 		for (var k in element.dataset) {
+
 			if (k == 'source')
 				continue;
+
 			if (k == 'json')
 				continue;
-			var result = subst(element.dataset[k], data);
-			if (result == null)
+
+			if (data.hasOwnProperty(k)) {
+				element[k] = data[k];
+				delete element.dataset[k]
 				continue;
-			delete element.dataset[k];
-			element[k] = result;
+			}
+
+			var subst = false;
+			var result = string.replace(/{(.+?)}/g, function(_, name) {
+				if (!data.hasOwnProperty(name))
+					return '';
+				subst = true;
+				return data[name];
+			});
+
+			if (subst) {
+				element[k] = result;
+				delete element.dataset[k]
+			}
+
 		}
 	}
 
