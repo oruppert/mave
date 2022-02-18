@@ -69,11 +69,11 @@ function autofill(root, error_redirect) {
 		var stack = find(root, has_data_json);
 		while (stack.length > 0) {
 			var element = stack.pop();
-			var json = JSON.parse(element.dataset.json);
-			delete element.dataset.json;
+			var json = JSON.parse(element.dataset['json']);
+			delete element.dataset['json'];
 			each(json, function(data) {
 				var newElement = dup(element);
-				newElement.dataset.json = JSON.stringify(data);
+				newElement.dataset['json'] = JSON.stringify(data);
 				walk(newElement, function(element) {
 					fill(element, data);
 				});
@@ -93,7 +93,7 @@ function autofill(root, error_redirect) {
 
 		var element = stack.pop();
 		var uri = element.dataset.source + location.search;
-		delete element.dataset.source;
+		delete element.dataset['source'];
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', uri);
 		xhr.onload = function() {
@@ -102,7 +102,7 @@ function autofill(root, error_redirect) {
 					location = error_redirect;
 				return;
 			}
-			element.dataset.json = xhr.responseText;
+			element.dataset['json'] = xhr.responseText;
 			process_next_source_element();
 		}
 		xhr.send(null);
