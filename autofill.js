@@ -42,14 +42,15 @@ function autofill(root, error_redirect) {
 			if (k == 'json')
 				continue;
 
-			if (data.hasOwnProperty(k)) {
-				element[k] = data[k];
+
+			if (data.hasOwnProperty(element.dataset[k])) {
+				element[k] = data[element.dataset[k]];
 				delete element.dataset[k]
 				continue;
 			}
 
 			var subst = false;
-			var result = string.replace(/{(.+?)}/g, function(_, name) {
+			var result = element.dataset[k].replace(/{(.+?)}/g, function(_, name) {
 				if (!data.hasOwnProperty(name))
 					return '';
 				subst = true;
