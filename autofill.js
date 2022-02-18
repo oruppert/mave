@@ -44,11 +44,11 @@ function autofill(root, error_redirect) {
 	}
 
 	function has_data_source(element) {
-		return element.dataset && element.dataset.source;
+		return element.dataset && element.dataset['source'];
 	}
 
 	function has_data_json(element) {
-		return element.dataset && element.dataset.json;
+		return element.dataset && element.dataset['json'];
 	}
 
 	function fill(element, data) {
@@ -113,4 +113,4 @@ function autofill(root, error_redirect) {
 
 }
 
-autofill(document, '/login');
+window['autofill'] = autofill;
