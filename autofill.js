@@ -1,4 +1,4 @@
-function autofill(root, error_redirect) {
+function autofill(root, error_handler) {
 
 	function each(list, func) {
 		for (var i = 0; i < list.length; i++)
@@ -98,8 +98,13 @@ function autofill(root, error_redirect) {
 		xhr.open('GET', uri);
 		xhr.onload = function() {
 			if (xhr.status != 200) {
-				if (error_redirect)
-					location = error_redirect;
+
+				if (typeof error_handler == 'function')
+					error_handler(xhr);
+
+				if (typeof error_handler == 'string')
+					location = error_handler;
+
 				return;
 			}
 			element.dataset['json'] = xhr.responseText;
