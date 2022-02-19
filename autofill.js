@@ -1,4 +1,4 @@
-function autofill(root, error_handler) {
+function autofill(root, error_handler, done_callback) {
 
 	function each(list, func) {
 		for (var i = 0; i < list.length; i++)
@@ -80,6 +80,8 @@ function autofill(root, error_handler) {
 			});
 			element.parentNode.removeChild(element);
 		}
+		if (done_callback)
+			done_callback();
 	}
 
 	var stack = find(root, has_data_source);
