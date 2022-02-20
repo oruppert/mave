@@ -54,7 +54,7 @@ function autofill(root, error_handler, done_callback) {
 				if (!data.hasOwnProperty(name))
 					return '';
 				subst = true;
-				return data[name];
+				return encodeURIComponent(data[name]);
 			});
 
 			if (subst) {
