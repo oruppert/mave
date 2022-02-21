@@ -33,6 +33,10 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['json'];
 	}
 
+	/*
+	 * Issues an xhr http request and calls func with the
+	 * resulting json object.
+	 */
 	function get_json(uri, func) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', uri);
