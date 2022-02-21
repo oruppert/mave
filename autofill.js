@@ -29,10 +29,6 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['source'];
 	}
 
-	function has_data_json(element) {
-		return element.dataset && element.dataset['json'];
-	}
-
 	/*
 	 * Issues an xhr http request and calls func with the
 	 * resulting json object.
