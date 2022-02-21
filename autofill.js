@@ -33,6 +33,25 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['json'];
 	}
 
+	function get_string(uri, func) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', uri);
+		xhr.onload = function() {
+			if (xhr.status != 200) {
+
+				if (typeof error_handler == 'function')
+					error_handler(xhr);
+
+				if (typeof error_handler == 'string')
+					location = error_handler;
+
+				return;
+			}
+			func(xhr.responseText);
+		}
+		xhr.send(null);
+	}
+
 	/*
 	 * Substitutes occurences of {name} with
 	 * encodueURIComponent(data[name]) in string.
@@ -119,23 +138,10 @@ function autofill(root, error_handler, done_callback) {
 		var element = stack.pop();
 		var uri = element.dataset['source'] + location.search;
 		delete element.dataset['source'];
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', uri);
-		xhr.onload = function() {
-			if (xhr.status != 200) {
-
-				if (typeof error_handler == 'function')
-					error_handler(xhr);
-
-				if (typeof error_handler == 'string')
-					location = error_handler;
-
-				return;
-			}
-			element.dataset['json'] = xhr.responseText;
+		get_string(uri, function(string) {
+			element.dataset['json'] = string;
 			process_next_source_element();
-		}
-		xhr.send(null);
+		});
 
 	}
 
