@@ -107,10 +107,18 @@ function autofill(root, error_handler, done_callback) {
 		}
 	}
 
-	function process_json_elements() {
-		var stack = find(root, has_data_json);
-		while (stack.length > 0) {
-			var element = stack.pop();
+	var stack = find(root, has_data_source);
+
+	function process_next_source_element() {
+
+		if (stack.length == 0)
+			return;
+
+		var element = stack.pop();
+		var uri = element.dataset['source'] + location.search;
+		delete element.dataset['source'];
+		get_string(uri, function(string) {
+			element.dataset['json'] = string;
 			var json = JSON.parse(element.dataset['json']);
 			delete element.dataset['json'];
 			each(json, function(data) {
@@ -121,25 +129,7 @@ function autofill(root, error_handler, done_callback) {
 				});
 			});
 			element.parentNode.removeChild(element);
-		}
-		if (done_callback)
-			done_callback();
-	}
 
-	var stack = find(root, has_data_source);
-
-	function process_next_source_element() {
-
-		if (stack.length == 0) {
-			process_json_elements();
-			return;
-		}
-
-		var element = stack.pop();
-		var uri = element.dataset['source'] + location.search;
-		delete element.dataset['source'];
-		get_string(uri, function(string) {
-			element.dataset['json'] = string;
 			process_next_source_element();
 		});
 
