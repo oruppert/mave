@@ -33,6 +33,33 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['json'];
 	}
 
+	/*
+	 * Substitutes occurences of {name} with
+	 * encodueURIComponent(data[name]) in string.
+	 * Returns the resulting string or null if no
+	 * substitutions happend.
+	 */
+	function uri_template(string, data) {
+
+		var subst = false;
+
+		var result = string.replace(/{(.+?)}/g, function(_, name) {
+
+			if (!data.hasOwnProperty(name))
+				return '';
+
+			subst = true;
+
+			return encodeURIComponent(data[name]);
+		});
+
+		if (subst)
+			return result;
+
+		return null;
+
+	}
+
 	function fill(element, data) {
 		for (var k in element.dataset) {
 
@@ -49,18 +76,14 @@ function autofill(root, error_handler, done_callback) {
 				continue;
 			}
 
-			var subst = false;
-			var result = element.dataset[k].replace(/{(.+?)}/g, function(_, name) {
-				if (!data.hasOwnProperty(name))
-					return '';
-				subst = true;
-				return encodeURIComponent(data[name]);
-			});
+			var result = uri_template(element.dataset[k], data);
 
-			if (subst) {
-				element[k] = result;
-				delete element.dataset[k]
-			}
+			if (result == null)
+				continue;
+
+			element[k] = result;
+			delete element.dataset[k]
+
 
 		}
 	}
