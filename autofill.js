@@ -33,7 +33,7 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['json'];
 	}
 
-	function get_string(uri, func) {
+	function get_json(uri, func) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', uri);
 		xhr.onload = function() {
@@ -47,7 +47,7 @@ function autofill(root, error_handler, done_callback) {
 
 				return;
 			}
-			func(xhr.responseText);
+			func(JSON.parse(xhr.responseText));
 		}
 		xhr.send(null);
 	}
@@ -111,16 +111,15 @@ function autofill(root, error_handler, done_callback) {
 
 	function process_next_source_element() {
 
-		if (stack.length == 0)
+		if (stack.length == 0) {
+			if (done_callback)
+				done_callback();
 			return;
-
+		}
 		var element = stack.pop();
 		var uri = element.dataset['source'] + location.search;
 		delete element.dataset['source'];
-		get_string(uri, function(string) {
-			element.dataset['json'] = string;
-			var json = JSON.parse(element.dataset['json']);
-			delete element.dataset['json'];
+		get_json(uri, function(json) {
 			each(json, function(data) {
 				var newElement = dup(element);
 				newElement.dataset['json'] = JSON.stringify(data);
