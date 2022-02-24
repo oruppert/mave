@@ -112,35 +112,35 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	function fill(element, data) {
-		for (var k in element.dataset) {
+		element.dataset['json'] = JSON.stringify(data);
+		walk(element, function(element) {
+			for (var k in element.dataset) {
 
-			if (k == 'source')
-				continue;
+				if (k == 'source')
+					continue;
 
-			if (k == 'json')
-				continue;
+				if (k == 'json')
+					continue;
 
 
-			if (data.hasOwnProperty(element.dataset[k])) {
-				element[k] = data[element.dataset[k]];
+				if (data.hasOwnProperty(element.dataset[k])) {
+					element[k] = data[element.dataset[k]];
+					delete element.dataset[k]
+					continue;
+				}
+
+				var result = uri_template(element.dataset[k], data);
+
+				if (result == null)
+					continue;
+
+				element[k] = result;
 				delete element.dataset[k]
-				continue;
 			}
-
-			var result = uri_template(element.dataset[k], data);
-
-			if (result == null)
-				continue;
-
-			element[k] = result;
-			delete element.dataset[k]
-
-
-		}
+		});
 	}
 
 	var stack = find(root, has_data_source);
-
 	function process_next_source_element() {
 
 		if (stack.length == 0) {
@@ -153,14 +153,9 @@ function autofill(root, error_handler, done_callback) {
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
 			each(json, function(data) {
-				var newElement = dup(element);
-				newElement.dataset['json'] = JSON.stringify(data);
-				walk(newElement, function(element) {
-					fill(element, data);
-				});
+				fill(dup(element), data);
 			});
 			element.parentNode.removeChild(element);
-
 			process_next_source_element();
 		});
 
