@@ -29,6 +29,28 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset['source'];
 	}
 
+	function params() {
+
+		var result = {};
+
+		if (location.search == null || location.search.length <= 1)
+			return result;
+
+		each(location.search.substring(1).split('&'), function(kv) {
+			var parts = kv.split('=', 2);
+			var name = decodeURIComponent(parts[0]);
+			var value = decodeURIComponent(parts[1] || '');
+
+			// do not overwrite properties
+			if (result.hasOwnProperty(name))
+				return;
+
+			result[name] = value;
+		});
+
+		return result;
+	}
+
 	/*
 	 * Issues an xhr http request and calls func with the
 	 * resulting json object.
