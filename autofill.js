@@ -86,6 +86,11 @@ function autofill(root, error_handler, done_callback) {
 
 		var result = string.replace(/{(.+?)}/g, function(_, name) {
 
+			if (name == 'location') {
+				subst = true;
+				return encodueURIComponent(location);
+			}
+
 			if (!data.hasOwnProperty(name))
 				return '';
 
