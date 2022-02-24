@@ -81,7 +81,7 @@ function autofill(root, error_handler, done_callback) {
 
 	/*
 	 * Substitutes occurences of {name} with
-	 * encodueURIComponent(data[name]) in string.
+	 * encodeURIComponent(data[name]) in string.
 	 * Returns the resulting string or null if no
 	 * substitutions happend.
 	 */
@@ -93,7 +93,7 @@ function autofill(root, error_handler, done_callback) {
 
 			if (name == 'location') {
 				subst = true;
-				return encodueURIComponent(location);
+				return encodeURIComponent(location);
 			}
 
 			if (!data.hasOwnProperty(name))
