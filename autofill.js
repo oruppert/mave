@@ -46,7 +46,9 @@ function autofill(root, error_handler, done_callback) {
 
 	function url_parameters() {
 
-		var result = {};
+		var result = {
+			'pathname':location['pathname']
+		};
 
 		if (location.search == null || location.search.length <= 1)
 			return result;
@@ -122,7 +124,8 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	function fill(element, data) {
-		element.dataset['json'] = JSON.stringify(data);
+		if (element.dataset)
+			element.dataset['json'] = JSON.stringify(data);
 		walk(element, function(element) {
 			for (var k in element.dataset) {
 
