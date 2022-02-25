@@ -55,26 +55,14 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	function url_parameters() {
-
-		var result = {
-			'pathname':location['pathname']
-		};
-
-		if (location.search == null || location.search.length <= 1)
-			return result;
-
-		each(location.search.substring(1).split('&'), function(kv) {
-			var parts = kv.split('=', 2);
-			var name = decode(parts[0]);
-			var value = decode(parts[1] || '');
-
-			// do not overwrite properties
-			if (result.hasOwnProperty(name))
-				return;
-
-			result[name] = value;
-		});
-
+		var result = {};
+		if (location.search != null || location.search.length > 1) {
+			each(location.search.substring(1).split('&'), function(kv) {
+				var parts = kv.split('=', 2);
+				putnew(result, decode(parts[0]), decode(parts[1] || ''));
+			});
+		}
+		putnew(result, 'pathname', location['pathname']);
 		return result;
 	}
 
@@ -168,6 +156,7 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	var stack = find(root, has_data_source);
+	var params = url_parameters();
 	function process_next_source_element() {
 
 		if (stack.length == 0) {
@@ -179,12 +168,12 @@ function autofill(root, error_handler, done_callback) {
 
 		if (element.dataset['source'] == 'params') {
 			delete element.dataset['source'];
-			fill(element, url_parameters());
+			fill(element, params);
 			process_next_source_element();
 			return;
 		}
 
-		var uri = source_uri(element.dataset['source'], url_parameters());
+		var uri = source_uri(element.dataset['source'], params);
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
 			each(json, function(data) {
