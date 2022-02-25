@@ -1,4 +1,4 @@
-function autofill(root, error_handler, done_callback) {
+function autofill(root, xhr_error_handler, done_callback) {
 
 	/*
 	 * Applies func to each item in list.  This functions works
@@ -107,7 +107,7 @@ function autofill(root, error_handler, done_callback) {
 	/*
 	 * Issues an xhr http request and calls func with the
 	 * resulting json object. If the http status code is
-	 * not 200, calls error_handler and returns.
+	 * not 200, calls xhr_error_handler and returns.
 	 */
 	function get_json(uri, func) {
 		var xhr = new XMLHttpRequest();
@@ -115,11 +115,11 @@ function autofill(root, error_handler, done_callback) {
 		xhr.onload = function() {
 			if (xhr.status != 200) {
 
-				if (typeof error_handler == 'function')
-					error_handler(xhr);
+				if (typeof xhr_error_handler == 'function')
+					xhr_error_handler(xhr);
 
-				if (typeof error_handler == 'string')
-					location = error_handler;
+				if (typeof xhr_error_handler == 'string')
+					location = xhr_error_handler;
 
 				return;
 			}
