@@ -81,6 +81,11 @@ function autofill(root, error_handler, done_callback) {
 		return decodeURIComponent(parameter.replace(/\+/g, ' '));
 	}
 
+	/*
+	 * Decodes the given url query string.  Returns the result as
+	 * an object.  If a query parameter occures more than once,
+	 * the first occurence is used.
+	 */
 	function url_decode_query(query) {
 
 		var result = {};
