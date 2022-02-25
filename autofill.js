@@ -35,7 +35,10 @@ function autofill(root, error_handler, done_callback) {
 		object[name] = value;
 	}
 
-
+	/*
+	 * Walks the document tree in document order and applies func
+	 * to each element.
+	 */
 	function walk(tree, func) {
 		func(tree);
 		each(tree.children, function(child) {
