@@ -35,6 +35,16 @@ function autofill(root, error_handler, done_callback) {
 		return element.parentNode.insertBefore(element.cloneNode(true), element);
 	}
 
+	/*
+	 * If name already exists in object, does nothing; otherwise
+	 * insert name value pair into object.
+	 */
+	function putnew(object, name, value) {
+		if (object.hasOwnProperty(name))
+			return;
+		object[name] = value;
+	}
+
 	function has_data_source(element) {
 		return element.dataset && element.dataset['source'];
 	}
