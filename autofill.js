@@ -74,7 +74,9 @@ function autofill(root, error_handler, done_callback) {
 		return element.dataset && element.dataset.hasOwnProperty('source');
 	}
 
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
+	/*
+	 * Fully decodes url parameter.  Taken from the mozilla wiki.
+	 */
 	function url_decode(parameter) {
 		return decodeURIComponent(parameter.replace(/\+/g, ' '));
 	}
