@@ -25,6 +25,17 @@ function autofill(root, error_handler, done_callback) {
 		return result;
 	}
 
+	/*
+	 * If name already exists in object, does nothing; otherwise
+	 * inserts name-value pair into object.
+	 */
+	function putnew(object, name, value) {
+		if (object.hasOwnProperty(name))
+			return;
+		object[name] = value;
+	}
+
+
 	function walk(element, func) {
 		func(element);
 		each(element.children, function(child) {
@@ -44,16 +55,6 @@ function autofill(root, error_handler, done_callback) {
 
 	function dup(element) {
 		return element.parentNode.insertBefore(element.cloneNode(true), element);
-	}
-
-	/*
-	 * If name already exists in object, does nothing; otherwise
-	 * inserts name-value pair into object.
-	 */
-	function putnew(object, name, value) {
-		if (object.hasOwnProperty(name))
-			return;
-		object[name] = value;
 	}
 
 	function has_data_source(element) {
