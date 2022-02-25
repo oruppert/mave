@@ -191,6 +191,7 @@ function autofill(root, error_handler, done_callback) {
 
 	var stack = find(root, has_data_source);
 	var query = url_decode_query(location.search);
+	addnew(query, 'location', location);
 	function process_next_source_element() {
 		if (stack.length == 0) {
 			/*
