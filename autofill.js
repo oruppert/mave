@@ -82,14 +82,20 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	function url_decode_query(query) {
+
 		var result = {};
-		if (query != null || query.length > 1) {
-			each(query.substring(1).split('&'), function(kv) {
-				var parts = kv.split('=', 2);
-				putnew(result, url_decode(parts[0]), url_decode(parts[1] || ''));
-			});
-		}
-		putnew(result, 'pathname', location['pathname']);
+
+		if (query.charAt(0) == '?')
+			query = query.substring(1);
+
+		each(query.split('&'), function(name_value_pair) {
+			var parts = name_value_pair.split('=', 2);
+			var name = url_decode(parts[0]);
+			var value = url_decode(parts[1] || '');
+			if (name != '')
+				putnew(result, name, value);
+		});
+
 		return result;
 	}
 
