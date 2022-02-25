@@ -66,6 +66,10 @@ function autofill(root, error_handler, done_callback) {
 		return node.parentNode.insertBefore(node.cloneNode(true), node);
 	}
 
+	/*
+	 * Returns true if element has a data-source attribute;
+	 * otherwise returns false.
+	 */
 	function has_data_source(element) {
 		return element.dataset && element.dataset['source'];
 	}
