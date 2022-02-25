@@ -21,6 +21,11 @@ function autofill(root, error_handler, done_callback) {
 		return result;
 	}
 
+	/*
+	 * Merges the given objects into a fresh object.  Properties
+	 * found in objects later in the argument list take precedence
+	 * over properties found in earlier objects.
+	 */
 	function merge(rest_objects) {
 		var result = {};
 		each(arguments, function(object) {
