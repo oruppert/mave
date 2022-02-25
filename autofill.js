@@ -60,8 +60,8 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 
-	function dup(element) {
-		return element.parentNode.insertBefore(element.cloneNode(true), element);
+	function dup(node) {
+		return node.parentNode.insertBefore(node.cloneNode(true), node);
 	}
 
 	function has_data_source(element) {
