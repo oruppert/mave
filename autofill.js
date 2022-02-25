@@ -21,6 +21,16 @@ function autofill(root, error_handler, done_callback) {
 		return result;
 	}
 
+	function merge(rest_objects) {
+		var result = {};
+		each(arguments, function(object) {
+			for (var k in object)
+				if (object.hasOwnProperty(k))
+					result[k] = object[k];
+		});
+		return result;
+	}
+
 	function dup(element) {
 		return element.parentNode.insertBefore(element.cloneNode(true), element);
 	}
