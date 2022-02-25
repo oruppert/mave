@@ -28,8 +28,8 @@ function autofill(root, error_handler, done_callback) {
 
 	/*
 	 * Merges the given objects into a fresh object.  Properties
-	 * found in objects later in the argument list take precedence
-	 * over properties found in earlier objects.
+	 * found in objects further back in the argument list take
+	 * precedence over properties found in previous objects.
 	 */
 	function merge(rest_objects) {
 		var result = {};
