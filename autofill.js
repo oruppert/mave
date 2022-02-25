@@ -44,7 +44,7 @@ function autofill(root, error_handler, done_callback) {
 		return decodeURIComponent(p.replace(/\+/g, ' '));
 	}
 
-	function params() {
+	function url_parameters() {
 
 		var result = {};
 
@@ -162,7 +162,7 @@ function autofill(root, error_handler, done_callback) {
 
 		if (element.dataset['source'] == 'params') {
 			delete element.dataset['source'];
-			fill(element, params());
+			fill(element, url_parameters());
 			process_next_source_element();
 			return;
 		}
