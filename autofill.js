@@ -171,8 +171,12 @@ function autofill(root, error_handler, done_callback) {
 	var stack = find(root, has_data_source);
 	var params = url_parameters();
 	function process_next_source_element() {
-
 		if (stack.length == 0) {
+			/*
+			 * Do a last pass over the root element to
+			 * fill elements without a data-source parent.
+			 */
+			fill(root, params)
 			if (done_callback)
 				done_callback();
 			return;
