@@ -36,9 +36,9 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 
-	function walk(element, func) {
-		func(element);
-		each(element.children, function(child) {
+	function walk(tree, func) {
+		func(tree);
+		each(tree.children, function(child) {
 			walk(child, func)
 		});
 	}
