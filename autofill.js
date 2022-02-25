@@ -153,6 +153,10 @@ function autofill(root, error_handler, done_callback) {
 		});
 	}
 
+	function source_uri(string, data) {
+		return string + location.search;
+	}
+
 	var stack = find(root, has_data_source);
 	function process_next_source_element() {
 
@@ -170,7 +174,7 @@ function autofill(root, error_handler, done_callback) {
 			return;
 		}
 
-		var uri = element.dataset['source'] + location.search;
+		var uri = source_uri(element.dataset['source'], url_parameters());
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
 			each(json, function(data) {
