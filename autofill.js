@@ -46,9 +46,9 @@ function autofill(root, error_handler, done_callback) {
 		});
 	}
 
-	function find(element, pred) {
+	function find(tree, pred) {
 		var result = [];
-		walk(element, function(element) {
+		walk(tree, function(element) {
 			if (pred(element))
 				result.push(element);
 		});
