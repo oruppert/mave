@@ -50,8 +50,8 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
-	function decodeQueryParam(p) {
-		return decodeURIComponent(p.replace(/\+/g, ' '));
+	function decode(parameter) {
+		return decodeURIComponent(parameter.replace(/\+/g, ' '));
 	}
 
 	function url_parameters() {
@@ -65,8 +65,8 @@ function autofill(root, error_handler, done_callback) {
 
 		each(location.search.substring(1).split('&'), function(kv) {
 			var parts = kv.split('=', 2);
-			var name = decodeQueryParam(parts[0]);
-			var value = decodeQueryParam(parts[1] || '');
+			var name = decode(parts[0]);
+			var value = decode(parts[1] || '');
 
 			// do not overwrite properties
 			if (result.hasOwnProperty(name))
