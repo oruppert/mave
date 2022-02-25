@@ -81,10 +81,10 @@ function autofill(root, error_handler, done_callback) {
 		return decodeURIComponent(parameter.replace(/\+/g, ' '));
 	}
 
-	function url_parameters() {
+	function url_decode_query(query) {
 		var result = {};
-		if (location.search != null || location.search.length > 1) {
-			each(location.search.substring(1).split('&'), function(kv) {
+		if (query != null || query.length > 1) {
+			each(query.substring(1).split('&'), function(kv) {
 				var parts = kv.split('=', 2);
 				putnew(result, url_decode(parts[0]), url_decode(parts[1] || ''));
 			});
@@ -184,7 +184,7 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	var stack = find(root, has_data_source);
-	var query = url_parameters();
+	var query = url_decode_query(location.search);
 	function process_next_source_element() {
 		if (stack.length == 0) {
 			/*
