@@ -1,5 +1,10 @@
 function autofill(root, error_handler, done_callback) {
 
+	/*
+	 * Applies func to each item in list.  This functions works
+	 * with HTMLCollections, argument lists and normal javascript
+	 * arrays.
+	 */
 	function each(list, func) {
 		for (var i = 0; i < list.length; i++)
 			func(list[i]);
