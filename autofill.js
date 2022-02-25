@@ -187,9 +187,6 @@ function autofill(root, error_handler, done_callback) {
 
 	function source_uri(string, data) {
 
-		if (data.hasOwnProperty(string))
-			return data[string];
-
 		var result = uri_template(string, data);
 
 		if (result != null)
