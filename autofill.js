@@ -10,6 +10,21 @@ function autofill(root, error_handler, done_callback) {
 			func(list[i]);
 	}
 
+	/*
+	 * Merges the given objects into a fresh object.  Properties
+	 * found in objects further back in the argument list take
+	 * precedence over properties found in previous objects.
+	 */
+	function merge(rest_objects) {
+		var result = {};
+		each(arguments, function(object) {
+			for (var k in object)
+				if (object.hasOwnProperty(k))
+					result[k] = object[k];
+		});
+		return result;
+	}
+
 	function walk(element, func) {
 		func(element);
 		each(element.children, function(child) {
@@ -26,20 +41,6 @@ function autofill(root, error_handler, done_callback) {
 		return result;
 	}
 
-	/*
-	 * Merges the given objects into a fresh object.  Properties
-	 * found in objects further back in the argument list take
-	 * precedence over properties found in previous objects.
-	 */
-	function merge(rest_objects) {
-		var result = {};
-		each(arguments, function(object) {
-			for (var k in object)
-				if (object.hasOwnProperty(k))
-					result[k] = object[k];
-		});
-		return result;
-	}
 
 	function dup(element) {
 		return element.parentNode.insertBefore(element.cloneNode(true), element);
