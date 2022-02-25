@@ -127,10 +127,10 @@ function autofill(root, error_handler, done_callback) {
 			return encodeURIComponent(data[name]);
 		});
 
-		if (subst)
-			return result;
+		if (!subst)
+			return null;
 
-		return null;
+		return result;
 
 	}
 
