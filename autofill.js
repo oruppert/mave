@@ -185,14 +185,6 @@ function autofill(root, error_handler, done_callback) {
 			return;
 		}
 		var element = stack.pop();
-
-		if (element.dataset['source'] == 'params') {
-			delete element.dataset['source'];
-			fill(element, params);
-			process_next_source_element();
-			return;
-		}
-
 		var uri = source_uri(element.dataset['source'], params);
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
