@@ -46,6 +46,10 @@ function autofill(root, error_handler, done_callback) {
 		});
 	}
 
+	/*
+	 * Finds all elements matching predicate pred in document
+	 * tree.  Elements are returned in document order.
+	 */
 	function find(tree, pred) {
 		var result = [];
 		walk(tree, function(element) {
