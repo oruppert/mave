@@ -68,7 +68,8 @@ function autofill(root, error_handler, done_callback) {
 
 	/*
 	 * Issues an xhr http request and calls func with the
-	 * resulting json object.
+	 * resulting json object. If the http status code is
+	 * not 200, calls error_handler and returns.
 	 */
 	function get_json(uri, func) {
 		var xhr = new XMLHttpRequest();
