@@ -62,7 +62,7 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
-	function decode(parameter) {
+	function url_decode(parameter) {
 		return decodeURIComponent(parameter.replace(/\+/g, ' '));
 	}
 
@@ -71,7 +71,7 @@ function autofill(root, error_handler, done_callback) {
 		if (location.search != null || location.search.length > 1) {
 			each(location.search.substring(1).split('&'), function(kv) {
 				var parts = kv.split('=', 2);
-				putnew(result, decode(parts[0]), decode(parts[1] || ''));
+				putnew(result, url_decode(parts[0]), url_decode(parts[1] || ''));
 			});
 		}
 		putnew(result, 'pathname', location['pathname']);
