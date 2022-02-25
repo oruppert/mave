@@ -104,7 +104,7 @@ function autofill(root, error_handler, done_callback) {
 	 * Substitutes occurences of {name} with
 	 * encodeURIComponent(data[name]) in string.
 	 * Returns the resulting string or null if no
-	 * substitutions happend.
+	 * substitutions were made.
 	 */
 	function uri_template(string, data) {
 
