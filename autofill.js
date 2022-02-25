@@ -47,7 +47,7 @@ function autofill(root, error_handler, done_callback) {
 
 	/*
 	 * If name already exists in object, does nothing; otherwise
-	 * insert name value pair into object.
+	 * inserts name-value pair into object.
 	 */
 	function putnew(object, name, value) {
 		if (object.hasOwnProperty(name))
