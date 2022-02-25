@@ -184,24 +184,24 @@ function autofill(root, error_handler, done_callback) {
 	}
 
 	var stack = find(root, has_data_source);
-	var params = url_parameters();
+	var query = url_parameters();
 	function process_next_source_element() {
 		if (stack.length == 0) {
 			/*
 			 * Do a last pass over the root element to
 			 * fill elements without a data-source parent.
 			 */
-			fill(root, params)
+			fill(root, query)
 			if (done_callback)
 				done_callback();
 			return;
 		}
 		var element = stack.pop();
-		var uri = source_uri(element.dataset['source'], params);
+		var uri = source_uri(element.dataset['source'], query);
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
 			each(json, function(data) {
-				fill(dup(element), merge(params, data));
+				fill(dup(element), merge(query, data));
 			});
 			element.parentNode.removeChild(element);
 			process_next_source_element();
