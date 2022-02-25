@@ -197,7 +197,7 @@ function autofill(root, error_handler, done_callback) {
 		delete element.dataset['source'];
 		get_json(uri, function(json) {
 			each(json, function(data) {
-				fill(dup(element), data);
+				fill(dup(element), merge(params, data));
 			});
 			element.parentNode.removeChild(element);
 			process_next_source_element();
