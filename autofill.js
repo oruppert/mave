@@ -71,7 +71,7 @@ function autofill(root, error_handler, done_callback) {
 	 * otherwise returns false.
 	 */
 	function has_data_source(element) {
-		return element.dataset && element.dataset['source'];
+		return element.dataset && element.dataset.hasOwnProperty('source');
 	}
 
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent
