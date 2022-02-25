@@ -59,7 +59,9 @@ function autofill(root, error_handler, done_callback) {
 		return result;
 	}
 
-
+	/*
+	 * Inserts a deep clone of node before node.
+	 */
 	function dup(node) {
 		return node.parentNode.insertBefore(node.cloneNode(true), node);
 	}
