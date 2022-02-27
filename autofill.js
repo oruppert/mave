@@ -178,27 +178,24 @@ function autofill(root, xhr_error_handler, done_callback) {
 
 	}
 
-	function fill_element(element, data) {
-		for (var name in element.dataset) {
-
-			if (name == 'source')
-				continue;
-
-			if (name == 'json')
-				continue;
-
-			var string = element.dataset[name];
-			if (update_element_prop(element, name, string, data))
-				delete element.dataset[name]
-		}
-	}
-
-
 	function fill(element, data) {
 		if (element.dataset)
 			element.dataset['json'] = JSON.stringify(data);
 		walk(element, function(element) {
-			fill_element(element, data);
+			for (var name in element.dataset) {
+
+				if (name == 'source')
+					continue;
+
+				if (name == 'json')
+					continue;
+
+				var string = element.dataset[name];
+
+				if (update_element_prop(element, name, string, data))
+					delete element.dataset[name];
+			}
+
 		});
 	}
 
