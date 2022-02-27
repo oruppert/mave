@@ -153,8 +153,8 @@ function autofill(root, xhr_error_handler, done_callback) {
 	}
 
 	/*
-	 * Updates the element name property, depending on string and
-	 * data.  The rules are: If string is a data key, set the
+	 * Updates the element property named name depending on string
+	 * and data.  The rules are: If string is a data key, set the
 	 * property to its value.  Otherwise check if string and data
 	 * are a valid uri_template.  If so, set the property to its
 	 * value.  Returns true if the property was set, otherwise
