@@ -225,7 +225,8 @@ function autofill(root, xhr_error_handler, done_callback) {
 		if (stack.length == 0) {
 			/*
 			 * Do a last pass over the root element to
-			 * fill elements without a data-source parent.
+			 * fill elements without a data-source parent
+			 * using query data.
 			 */
 			fill(root, query)
 			if (done_callback)
