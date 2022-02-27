@@ -179,28 +179,17 @@ function autofill(root, xhr_error_handler, done_callback) {
 	}
 
 	function fill_element(element, data) {
-		for (var k in element.dataset) {
+		for (var name in element.dataset) {
 
-			if (k == 'source')
+			if (name == 'source')
 				continue;
 
-			if (k == 'json')
+			if (name == 'json')
 				continue;
 
-
-			if (data.hasOwnProperty(element.dataset[k])) {
-				element[k] = data[element.dataset[k]];
-				delete element.dataset[k]
-				continue;
-			}
-
-			var result = uri_template(element.dataset[k], data);
-
-			if (result == null)
-				continue;
-
-			element[k] = result;
-			delete element.dataset[k]
+			var string = element.dataset[name];
+			if (update_element_prop(element, name, string, data))
+				delete element.dataset[name]
 		}
 	}
 
