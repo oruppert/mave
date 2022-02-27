@@ -178,6 +178,12 @@ function autofill(root, xhr_error_handler, done_callback) {
 
 	}
 
+	/*
+	 * Fill a whole tree from data according to the rules
+	 * implemented by update_element_prop.  Also sets the
+	 * data-json attribute of element to the json representation
+	 * of data if possible.
+	 */
 	function fill(element, data) {
 		if (element.dataset)
 			element.dataset['json'] = JSON.stringify(data);
