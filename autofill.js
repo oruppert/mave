@@ -220,7 +220,7 @@ function autofill(root, xhr_error_handler, done_callback) {
 
 	var stack = find(root, has_data_source);
 	var query = url_decode_query(location.search);
-	put_new(query, 'location', location);
+	put_new(query, 'location', location.toString());
 	function process_next_source_element() {
 		if (stack.length == 0) {
 			/*
