@@ -152,33 +152,38 @@ function autofill(root, xhr_error_handler, done_callback) {
 
 	}
 
+	function fill_element(element, data) {
+		for (var k in element.dataset) {
+
+			if (k == 'source')
+				continue;
+
+			if (k == 'json')
+				continue;
+
+
+			if (data.hasOwnProperty(element.dataset[k])) {
+				element[k] = data[element.dataset[k]];
+				delete element.dataset[k]
+				continue;
+			}
+
+			var result = uri_template(element.dataset[k], data);
+
+			if (result == null)
+				continue;
+
+			element[k] = result;
+			delete element.dataset[k]
+		}
+	}
+
+
 	function fill(element, data) {
 		if (element.dataset)
 			element.dataset['json'] = JSON.stringify(data);
 		walk(element, function(element) {
-			for (var k in element.dataset) {
-
-				if (k == 'source')
-					continue;
-
-				if (k == 'json')
-					continue;
-
-
-				if (data.hasOwnProperty(element.dataset[k])) {
-					element[k] = data[element.dataset[k]];
-					delete element.dataset[k]
-					continue;
-				}
-
-				var result = uri_template(element.dataset[k], data);
-
-				if (result == null)
-					continue;
-
-				element[k] = result;
-				delete element.dataset[k]
-			}
+			fill_element(element, data);
 		});
 	}
 
