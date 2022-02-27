@@ -112,18 +112,15 @@ function autofill(root, xhr_error_handler, done_callback) {
 	function get_json(uri, func) {
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', uri);
-		xhr.onload = function() {
-			if (xhr.status != 200) {
+		xhr.onerror = xhr_error_handler;
+		xhr.onload = function(event) {
 
-				if (typeof xhr_error_handler == 'function')
-					xhr_error_handler(xhr);
+			if (xhr.status == 200)
+				func(JSON.parse(xhr.responseText));
 
-				if (typeof xhr_error_handler == 'string')
-					location = xhr_error_handler;
+			else if (xhr_error_handler)
+				xhr_error_handler(event);
 
-				return;
-			}
-			func(JSON.parse(xhr.responseText));
 		}
 		xhr.send(null);
 	}
