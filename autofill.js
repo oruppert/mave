@@ -184,10 +184,10 @@ function autofill(root, xhr_error_handler, done_callback) {
 	 * data-json attribute of element to the json representation
 	 * of data if possible.
 	 */
-	function fill(element, data) {
-		if (element.dataset)
+	function fill(tree, data) {
+		if (tree.dataset)
 			element.dataset['json'] = JSON.stringify(data);
-		walk(element, function(element) {
+		walk(tree, function(element) {
 			for (var name in element.dataset) {
 
 				if (name == 'source')
