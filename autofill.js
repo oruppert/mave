@@ -205,6 +205,15 @@ function autofill(root, xhr_error_handler, done_callback) {
 			tree.dataset['json'] = JSON.stringify(data);
 	}
 
+	/*
+	 * Constructs the uri for elements with a data-source
+	 * attribute.  The rules are: if string and data are an valid
+	 * uri_template, return its value.  If the given string
+	 * contains a question mark, it is assumed to have an query
+	 * string and the string is returned.  Otherwise the query
+	 * string of the current location is appended to string and
+	 * returned.
+	 */
 	function source_uri(string, data) {
 
 		var result = uri_template(string, data);
