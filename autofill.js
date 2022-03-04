@@ -169,12 +169,12 @@ function autofill(root, xhr_error_handler, done_callback) {
 
 		var value = uri_template(string, data);
 
-		if (value == null)
-			return false;
+		if (value != null) {
+			element[name] = value;
+			return true;
+		}
 
-		element[name] = value;
-
-		return true;
+		return false;
 
 	}
 
