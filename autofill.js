@@ -185,8 +185,6 @@ function autofill(root, xhr_error_handler, done_callback) {
 	 * of data if possible.
 	 */
 	function fill(tree, data) {
-		if (tree.dataset)
-			tree.dataset['json'] = JSON.stringify(data);
 		walk(tree, function(element) {
 			for (var name in element.dataset) {
 
@@ -203,6 +201,8 @@ function autofill(root, xhr_error_handler, done_callback) {
 			}
 
 		});
+		if (tree.dataset)
+			tree.dataset['json'] = JSON.stringify(data);
 	}
 
 	function source_uri(string, data) {
