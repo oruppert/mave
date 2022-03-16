@@ -14,6 +14,39 @@
 
 (in-package :webapp/database)
 
+;;;; insert-or-update
+
+(defun sql (object)
+  (etypecase object
+    (null "false")
+    (keyword (substitute #\_ #\- (string-downcase object)))
+    (integer (princ-to-string object))
+    (string (with-output-to-string (stream)
+	      (write-char #\' stream)
+	      (loop for char across object do
+		(case char
+		  (#\' (write-string "''" stream))
+		  (t (write-char char stream))))
+	      (write-char #\' stream)))))
+
+;;(defun sql-and (&rest clauses)
+;;  (format nil "true~{~@[ and ~a~]~}" clauses))
+
+;; postgres specific, and uses id column for on conclict
+(defun insert-or-update (table &rest plist)
+  (let ((cols (loop for (k v) on plist by #'cddr collect k))
+	(vals (loop for (k v) on plist by #'cddr collect v)))
+    (query
+     (format nil "
+	insert into ~a(~{~a~^, ~}) values(~{~%		~a~^, ~}
+	) on conflict (id) do update set  ~{~%		~a = ~a~^, ~}
+	returning *"
+	     (sql table)
+	     (mapcar #'sql cols)
+	     (mapcar #'sql vals)
+	     (mapcar #'sql plist)))))
+
+
 ;;;; database access
 
 (defgeneric query (sql))
