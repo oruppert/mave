@@ -1,6 +1,3 @@
-Two files:
+- [[./autofill.js][autofill.js]]: Fill a web page with values loaded by an XMLHttpRequest.
 
-- The file [[./autofill.js][autofill.js]] contains code to fill a web page
-  with values loaded via and XMLHttpRequest.
-
-- [[./html.lisp][autofill.lisp]] contains a function based html generator.
+- [[./html.lisp][html.lisp]]: A function based html generator.
