@@ -1,1 +1,6 @@
-The only important thing is [[./autofill.js][autofill.js]]
+Two files:
+
+- The file [[./autofill.js][autofill.js]] contains code to fill a web page
+  with values loaded via and XMLHttpRequest.
+
+- [[./html.lisp][autofill.lisp]] contains a function based html generator.
