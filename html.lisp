@@ -44,27 +44,24 @@
   (with-output-to-string (stream)
     (multiple-value-bind (attributes children)
 	(html-destruct attributes/children)
-      (let ((text (getf attributes :text)))
-	(remf attributes :text)
+      (write-char #\< stream)
+      (write-string (string-downcase name) stream)
+      (loop for (k v) on attributes by #'cddr do
+	(when v
+	  (write-char #\Space stream)
+	  (write-string (string-downcase k) stream)
+	  (unless (eql v t)
+	    (write-char #\= stream)
+	    (write-char #\" stream)
+	    (print-safe v stream)
+	    (write-char #\" stream))))
+      (write-char #\> stream)
+      (unless void-p
+	(print-fragment children stream)
 	(write-char #\< stream)
+	(write-char #\/ stream)
 	(write-string (string-downcase name) stream)
-	(loop for (k v) on attributes by #'cddr do
-	  (when v
-	    (write-char #\Space stream)
-	    (write-string (string-downcase k) stream)
-	    (unless (eql v t)
-	      (write-char #\= stream)
-	      (write-char #\" stream)
-	      (print-safe v stream)
-	      (write-char #\" stream))))
-	(write-char #\> stream)
-	(unless void-p
-	  (print-safe text stream)
-	  (print-fragment children stream)
-	  (write-char #\< stream)
-	  (write-char #\/ stream)
-	  (write-string (string-downcase name) stream)
-	  (write-char #\> stream))))))
+	(write-char #\> stream)))))
 
 (defmacro define-element (name &optional void-p)
   `(progn
