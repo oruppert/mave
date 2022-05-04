@@ -27,19 +27,6 @@
   (with-output-to-string (stream)
     (print-fragment children stream)))
 
-(defun print-safe (object stream)
-  (when object
-    (loop for char across (if (symbolp object)
-			      (string-downcase object)
-			      (princ-to-string object))
-	  do
-	     (case char
-	       (#\< (write-string "&lt;" stream))
-	       (#\> (write-string "&gt;" stream))
-	       (#\& (write-string "&amp;" stream))
-	       (#\" (write-string "&quot;" stream))
-	       (t (write-char char stream))))))
-
 (defun html-element (name void-p &rest attributes/children)
   (with-output-to-string (stream)
     (multiple-value-bind (attributes children)
@@ -53,7 +40,16 @@
 	  (unless (eql v t)
 	    (write-char #\= stream)
 	    (write-char #\" stream)
-	    (print-safe v stream)
+	    (loop for char across (if (symbolp v)
+				      (string-downcase v)
+				      (princ-to-string v))
+		  do
+		     (case char
+		       (#\< (write-string "&lt;" stream))
+		       (#\> (write-string "&gt;" stream))
+		       (#\& (write-string "&amp;" stream))
+		       (#\" (write-string "&quot;" stream))
+		       (t (write-char char stream))))
 	    (write-char #\" stream))))
       (write-char #\> stream)
       (unless void-p
