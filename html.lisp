@@ -2,8 +2,10 @@
   (:use :common-lisp)
   (:export
    #:html-destruct
-   #:html-fragment
-   #:html-element))
+   #:html-element
+   #:html-string
+   #:print-html-to-string
+   #:print-html))
 
 (in-package :html)
 
@@ -15,49 +17,88 @@
 	else collect item into children
 	finally (return (values attributes children))))
 
-(defun print-fragment (children stream)
-  (dolist (child children)
-    (fresh-line stream)
-    (if (listp child)
-	(print-fragment child stream)
-	(princ child stream))
-    (fresh-line stream)))
-
-(defun html-fragment (&rest children)
+(defun print-html-to-string (object)
   (with-output-to-string (stream)
-    (print-fragment children stream)))
+    (print-html object stream)))
+
+(defgeneric print-html (object stream))
+
+(defmethod print-html (object stream)
+  (print-html (princ-to-string object) stream))
+
+(defmethod print-html ((null null) stream))
+
+(defmethod print-html ((list list) stream)
+  (dolist (item list)
+    (print-html item stream)))
+
+(defmethod print-html ((symbol symbol) stream)
+  (write-string (string-downcase symbol) stream))
+
+(defmethod print-html ((string string) stream)
+  (loop for char across string do
+    (case char
+      (#\< (write-string "&lt;" stream))
+      (#\> (write-string "&gt;" stream))
+      (#\& (write-string "&amp;" stream))
+      (#\" (write-string "&quot;" stream))
+      (t (write-char char stream)))))
+
+(defclass html-string ()
+  ((string :initarg :string)))
+
+(defun html-string (string)
+  (make-instance 'html-string :string string))
+
+(defmethod print-html ((self html-string) stream)
+  (with-slots (string) self
+    (write-string string stream)))
+
+(defclass void-element ()
+  ((name :initarg :name :reader element-name)
+   (attributes :initarg :attributes :reader element-attributes)))
+
+(defmethod print-object ((self void-element) stream)
+  (print-html self stream))
+
+(defmethod print-html :before ((self void-element) stream)
+  (fresh-line stream))
+
+(defmethod print-html :after ((self void-element) stream)
+  (fresh-line stream))
+
+(defmethod print-html ((self void-element) stream)
+  (write-char #\< stream)
+  (write-string (string-downcase (element-name self)) stream)
+  (loop for (k v) on (element-attributes self) by #'cddr do
+    (unless (null v)
+      (write-char #\Space stream)
+      (write-string (string-downcase k) stream)
+      (unless (eq v t)
+	(write-char #\= stream)
+	(write-char #\" stream)
+	(print-html v stream)
+	(write-char #\" stream))))
+  (write-char #\> stream))
+
+(defclass html-element (void-element)
+  ((children :initarg :children :reader element-children)))
+
+(defmethod print-html ((self html-element) stream)
+  (call-next-method)
+  (print-html (element-children self) stream)
+  (write-char #\< stream)
+  (write-char #\/ stream)
+  (write-string (string-downcase (element-name self)) stream)
+  (write-char #\> stream))
 
 (defun html-element (name void-p &rest attributes/children)
-  (with-output-to-string (stream)
-    (multiple-value-bind (attributes children)
-	(html-destruct attributes/children)
-      (write-char #\< stream)
-      (write-string (string-downcase name) stream)
-      (loop for (k v) on attributes by #'cddr do
-	(when v
-	  (write-char #\Space stream)
-	  (write-string (string-downcase k) stream)
-	  (unless (eql v t)
-	    (write-char #\= stream)
-	    (write-char #\" stream)
-	    (loop for char across (if (symbolp v)
-				      (string-downcase v)
-				      (princ-to-string v))
-		  do
-		     (case char
-		       (#\< (write-string "&lt;" stream))
-		       (#\> (write-string "&gt;" stream))
-		       (#\& (write-string "&amp;" stream))
-		       (#\" (write-string "&quot;" stream))
-		       (t (write-char char stream))))
-	    (write-char #\" stream))))
-      (write-char #\> stream)
-      (unless void-p
-	(print-fragment children stream)
-	(write-char #\< stream)
-	(write-char #\/ stream)
-	(write-string (string-downcase name) stream)
-	(write-char #\> stream)))))
+  (multiple-value-bind (attributes children)
+      (html-destruct attributes/children)
+    (if void-p
+	(make-instance 'void-element :name name :attributes attributes)
+	(make-instance 'html-element :name name :attributes attributes
+		       :children children))))
 
 (defmacro define-element (name &optional void-p)
   `(progn
