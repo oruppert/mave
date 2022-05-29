@@ -6,7 +6,6 @@
 	:webapp/html)
   (:export
    #:entity
-   #:entity=
    #:list-entities))
 
 (in-package :webapp/entity)
@@ -28,14 +27,6 @@
 		       (postmodern:sql-escape slot-name)
 		       (postmodern:sql-escape (class-name class))
 		       (postmodern:sql-escape (entity-id self)))))))
-
-(defun entity= (a b)
-  (and (typep a 'entity)
-       (typep b 'entity)
-       (subtypep a b)
-       (subtypep b a)
-       (equal (entity-id a)
-	      (entity-id b))))
 
 (defun list-entities (class control-string &rest format-arguments)
   (loop with sql = (apply #'format nil control-string format-arguments)
