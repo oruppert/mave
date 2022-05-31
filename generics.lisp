@@ -8,12 +8,11 @@
    ;; parameter
    #:parameter-name
    #:parameter-value
-   ;; form
-   #:input-name
-   #:input-label
-   #:input-value
-   #:render-input
-   #:form-slots
+   ;; field
+   :list-fields
+   :field-label
+   :field-value
+   :render-field
    ;; entity
    #:entity-id
    #:entity-insert
@@ -32,19 +31,17 @@
 
 (defgeneric parameter-value (object))
 
-;;;; form
+;;;; field
 
-(defgeneric input-name (object slot-name))
+(defgeneric list-fields (object))
 
-(defgeneric input-label (object slot-name))
+(defgeneric field-label (object slot-name))
 
-(defgeneric input-value (object slot-name))
+(defgeneric field-value (object slot-name))
 
-(defgeneric (setf input-value) (value object slot-name))
+(defgeneric (setf field-value) (value object slot-name))
 
-(defgeneric render-input (object slot-name))
-
-(defgeneric form-slots (object))
+(defgeneric render-field (object slot-name))
 
 ;;;; entity
 
