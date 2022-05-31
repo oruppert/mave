@@ -5,7 +5,10 @@
    #:html-element
    #:html-string
    #:print-html-to-string
-   #:print-html))
+   #:print-html
+   ;; special elements
+   #:style
+   #:script))
 
 (in-package :webapp/html)
 
@@ -16,6 +19,14 @@
 	and collect (pop attributes/children) into attributes
 	else collect item into children
 	finally (return (values attributes children))))
+
+(defun print-text-content (text-content stream)
+  (if (listp text-content)
+      (dolist (item text-content)
+	(fresh-line stream)
+	(print-text-content item stream)
+	(fresh-line stream))
+      (write-string text-content stream)))
 
 (defun print-html-to-string (object)
   (with-output-to-string (stream)
@@ -84,9 +95,12 @@
 (defclass html-element (void-element)
   ((children :initarg :children :reader element-children)))
 
+(defmethod print-children ((self html-element) stream)
+  (print-html (element-children self) stream))
+
 (defmethod print-html ((self html-element) stream)
   (call-next-method)
-  (print-html (element-children self) stream)
+  (print-children self stream)
   (write-char #\< stream)
   (write-char #\/ stream)
   (write-string (string-downcase (element-name self)) stream)
@@ -99,12 +113,6 @@
 	(make-instance 'void-element :name name :attributes attributes)
 	(make-instance 'html-element :name name :attributes attributes
 		       :children children))))
-
-(defmacro define-element (name &optional void-p)
-  `(progn
-     (defun ,name (&rest attributes/children)
-       (apply #'html-element ',name ,void-p attributes/children))
-     (export ',name)))
 
 (define-element a)
 (define-element body)
@@ -123,8 +131,6 @@
 (define-element nav)
 (define-element p)
 (define-element section)
-(define-element script)
-(define-element style)
 (define-element table)
 (define-element td)
 (define-element th)
@@ -132,5 +138,30 @@
 (define-element link)
 (define-element tr)
 (define-element ul)
+
+(defclass text-content-element (html-element) ())
+
+(defmethod print-children ((self text-content-element) stream)
+  (print-text-content (element-children self) stream))
+
+(defun text-content-element (name &rest attributes/children)
+  (multiple-value-bind (attributes children)
+      (html-destruct attributes/children)
+    (make-instance 'text-content-element
+		   :name name
+		   :attributes attributes
+		   :children children)))
+
+(defun style (&rest attributes/children)
+  (apply #'text-content-element 'style attributes/children))
+
+(defun script (&rest attributes/children)
+  (apply #'text-content-element 'script attributes/children))
+
+(defmacro define-element (name &optional void-p)
+  `(progn
+     (defun ,name (&rest attributes/children)
+       (apply #'html-element ',name ,void-p attributes/children))
+     (export ',name)))
 
 
