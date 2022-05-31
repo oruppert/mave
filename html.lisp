@@ -114,6 +114,12 @@
 	(make-instance 'html-element :name name :attributes attributes
 		       :children children))))
 
+(defmacro define-element (name &optional void-p)
+  `(progn
+     (defun ,name (&rest attributes/children)
+       (apply #'html-element ',name ,void-p attributes/children))
+     (export ',name)))
+
 (define-element a)
 (define-element body)
 (define-element button)
@@ -158,10 +164,6 @@
 (defun script (&rest attributes/children)
   (apply #'text-content-element 'script attributes/children))
 
-(defmacro define-element (name &optional void-p)
-  `(progn
-     (defun ,name (&rest attributes/children)
-       (apply #'html-element ',name ,void-p attributes/children))
-     (export ',name)))
+
 
 
