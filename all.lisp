@@ -2,5 +2,6 @@
   (:use-reexport :webapp/generics
 		 :webapp/html
 		 :webapp/entity
-		 :webapp/href)
+		 :webapp/href
+		 :webapp/field)
   (:nicknames :webapp))
