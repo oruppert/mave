@@ -5,6 +5,10 @@
   (:export
    ;; render
    :render
+   ;; page
+   :page-title
+   :page-style
+   :page-script
    ;; display-name
    #:display-name
    ;; parameter
@@ -32,6 +36,19 @@
 
 (defgeneric render (object view)
   (:method-combination primary-only :order :most-specific-last))
+
+;;;; page
+
+(defgeneric page-title (object page)
+  (:documentation "Returns the title of the given object and page."))
+
+(defgeneric page-style (page)
+  (:documentation "Returns the styles of the given page as a list of strings.")
+  (:method-combination append :most-specific-last))
+
+(defgeneric page-script (page)
+  (:documentation "Returns the script of the given page as a list of strings.")
+  (:method-combination append :most-specific-last))
 
 ;;;; display-name
 
