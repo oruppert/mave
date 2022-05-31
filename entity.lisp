@@ -85,29 +85,7 @@
 
 ;;;; form
 
-(defmethod input-name ((self entity) slot-name)
-  slot-name)
-
-(defmethod input-label ((self entity) slot-name)
-  (string-capitalize slot-name))
-
-(defmethod input-value :around ((self entity) slot-name)
+(defmethod field-value :around ((self entity) slot-name)
   (when (or (entity-id self)
 	    (slot-boundp self slot-name))
     (call-next-method)))
-
-(defmethod input-value ((self entity) slot-name)
-  (slot-value self slot-name))
-
-(defmethod (setf input-value) (value (self entity) slot-name)
-  (setf (slot-value self slot-name) value))
-
-(defmethod render-input ((self entity) slot-name)
-  (input :name (input-name self slot-name)
-	 :value (input-value self slot-name)))
-
-(defmethod form-slots ((self entity))
-  (loop with class = (class-of self)
-	for slot in (sb-mop:class-direct-slots class)
-	for slot-name = (sb-mop:slot-definition-name slot)
-	collect slot-name))
