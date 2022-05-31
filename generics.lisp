@@ -35,13 +35,13 @@
 
 (defgeneric list-fields (object))
 
-(defgeneric field-label (object slot-name))
+(defgeneric field-label (object name))
 
-(defgeneric field-value (object slot-name))
+(defgeneric field-value (object name))
 
-(defgeneric (setf field-value) (value object slot-name))
+(defgeneric (setf field-value) (value object name))
 
-(defgeneric render-field (object slot-name))
+(defgeneric render-field (object name))
 
 ;;;; entity
 
