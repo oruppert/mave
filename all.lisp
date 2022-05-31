@@ -3,5 +3,6 @@
 		 :webapp/html
 		 :webapp/entity
 		 :webapp/href
-		 :webapp/field)
+		 :webapp/field
+		 :webapp/standard-form)
   (:nicknames :webapp))
