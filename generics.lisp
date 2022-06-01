@@ -3,10 +3,6 @@
 (uiop:define-package :webapp/generics
   (:use :common-lisp)
   (:export
-   ;; page
-   :page-title
-   :page-style
-   :page-script
    ;; display-name
    #:display-name
    ;; parameter
@@ -24,19 +20,6 @@
    #:entity-delete))
 
 (in-package :webapp/generics)
-
-;;;; page
-
-(defgeneric page-title (object page)
-  (:documentation "Returns the title of the given object and page."))
-
-(defgeneric page-style (page)
-  (:documentation "Returns the styles of the given page as a list of strings.")
-  (:method-combination append :most-specific-last))
-
-(defgeneric page-script (page)
-  (:documentation "Returns the script of the given page as a list of strings.")
-  (:method-combination append :most-specific-last))
 
 ;;;; display-name
 

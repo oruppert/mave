@@ -1,11 +1,31 @@
+;;;; package
+
 (uiop:define-package :webapp/standard-page
   (:use :common-lisp
 	:webapp/generics
 	:webapp/render
 	:webapp/html)
-  (:export :standard-page))
+  (:export :page-title
+	   :page-style
+	   :page-script
+	   :standard-page))
 
 (in-package :webapp/standard-page)
+
+;;;; generic functions
+
+(defgeneric page-title (object page)
+  (:documentation "Returns the title of the given object and page."))
+
+(defgeneric page-style (page)
+  (:documentation "Returns the styles of the given page as a list of strings.")
+  (:method-combination append :most-specific-last))
+
+(defgeneric page-script (page)
+  (:documentation "Returns the script of the given page as a list of strings.")
+  (:method-combination append :most-specific-last))
+
+;;;; standard-page
 
 (defclass standard-page ()
   ((title :initarg :title)))
