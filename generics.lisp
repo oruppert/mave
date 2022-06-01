@@ -12,12 +12,7 @@
    :list-fields
    :field-label
    :field-value
-   :render-field
-   ;; entity
-   #:entity-id
-   #:entity-insert
-   #:entity-update
-   #:entity-delete))
+   :render-field))
 
 (in-package :webapp/generics)
 
@@ -43,14 +38,3 @@
 
 (defgeneric render-field (object name))
 
-;;;; entity
-
-(defgeneric entity-id (object))
-
-(defgeneric (setf entity-id) (value object))
-
-(defgeneric entity-insert (object))
-
-(defgeneric entity-update (object))
-
-(defgeneric entity-delete (object))
