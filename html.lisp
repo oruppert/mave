@@ -144,6 +144,8 @@
 (define-element link)
 (define-element tr)
 (define-element ul)
+(define-element fieldset)
+(define-element legend)
 
 (defclass text-content-element (html-element) ())
 
