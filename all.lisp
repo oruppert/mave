@@ -4,5 +4,6 @@
 		 :webapp/entity
 		 :webapp/href
 		 :webapp/field
+		 :webapp/standard-page
 		 :webapp/standard-form)
   (:nicknames :webapp))
