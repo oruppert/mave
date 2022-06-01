@@ -1,6 +1,7 @@
 (uiop:define-package :webapp/standard-form
   (:use :common-lisp
 	:webapp/generics
+	:webapp/render
 	:webapp/html)
   (:export :standard-form))
 
