@@ -7,10 +7,11 @@
 (in-package :webapp/standard-page)
 
 (defclass standard-page ()
-  ((title :initarg :title :initform nil)))
+  ((title :initarg :title)))
 
 (defmethod page-title (object (self standard-page))
-  (or (slot-value self 'title)
+  (if (slot-boundp self 'title)
+      (slot-value self 'title)
       (call-next-method)))
 
 (defmethod page-style append ((self standard-page))
@@ -27,3 +28,4 @@
     (body (when (next-method-p)
 	    (call-next-method))
 	  (script (page-script self))))))
+
