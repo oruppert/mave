@@ -69,6 +69,7 @@
   self)
 
 (defmethod database-delete ((self database-object))
+  (assert (object-id self))
   (postmodern:query
    (format nil "delete from ~a where id = ~a"
 	   (postmodern:sql-escape (class-name (class-of self)))
