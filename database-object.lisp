@@ -5,7 +5,9 @@
 	:webapp/utilities)
   (:export :database-insert
 	   :database-update
-	   :database-delete))
+	   :database-delete
+	   :database-object
+	   :object-id))
 
 (in-package :webapp/database-object)
 
