@@ -116,7 +116,10 @@
   ())
 
 (defclass section (node)
-  ((title :initarg :title :reader section-title)))
+  ((title :initarg :title :reader section-title)
+   (first
+    :initarg :first
+    :documentation "True if this section is the first section in the document.")))
 
 (defclass text-block (node)
   ())
@@ -140,7 +143,11 @@
 ;;; Create a section an append it.
 
 (defmethod add-line ((self document) (line heading-line))
-  (append-child self (make-instance 'section :title (line-string line))))
+  (with-slots (last-child) self
+    (append-child self
+		  (make-instance 'section
+				 :title (line-string line)
+				 :first (not last-child)))))
 
 ;;; The section add-line method has to decide if a text-block accepts
 ;;; the given line.  It does so by using the accept-line method.
@@ -188,7 +195,10 @@
        do (print-org child stream))))
 
 (defmethod print-org :before ((self section) stream)
-  (format stream "* ~a~%" (section-title self)))
+  (with-slots (first) self
+    (if (not first)
+	(format stream "* ~a~%" (section-title self))
+	(format stream "** ~a~%" (section-title self)))))
 
 (defmethod print-org :before ((self code-block) stream)
   (format stream "#+begin_src lisp~%"))

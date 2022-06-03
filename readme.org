@@ -1,4 +1,3 @@
-* Introduction
 ** Introduction
 
 This package contains a bunch of classes that make writing lisp
@@ -17,7 +16,6 @@ following sections.  Each section corresponds to a file/package.
 
 
 
-* Package Structure
 ** Package Structure
 
 We are using the ``modern'' lisp package style.  That means every
@@ -46,7 +44,6 @@ packages you actually need.
    :webapp/standard-form)
   (:nicknames :webapp))
 #+end_src
-* The Render Function
 ** The Render Function
 
 #+begin_src lisp
@@ -65,7 +62,6 @@ packages you actually need.
   (:method-combination primary-only :most-specific-last))
 
 #+end_src
-* Database Object
 ** Database Object
 
 This package defines generic functions for CRUD operations and a
