@@ -16,7 +16,7 @@
 
 (in-package :webapp/database-object)
 
-;;; generic functions
+;;;; CRUD Functions
 
 (defgeneric database-insert (object)
   (:documentation "Insert the given object into the database."))
@@ -27,7 +27,7 @@
 (defgeneric database-delete (object)
   (:documentation "Delete the given object from the database."))
 
-;;; database-object
+;;;; Database-Object Class
 
 (defclass database-object ()
   ((id :initarg :id :initform nil :accessor object-id)))
