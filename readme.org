@@ -1,9 +1,12 @@
 * Introduction
 
 This package contains a bunch of classes that make writing lisp
-web applications easier.
+web applications easier.  This document is divided into the
+following sections.
 
 - [[#package-structure][Package Structure]]
+- [[#the-render-function][The Render Function]]
+- [[#database-object][Database Object]]
 
 
 * Package Structure
@@ -34,7 +37,7 @@ packages you actually need.
    :webapp/standard-form)
   (:nicknames :webapp))
 #+end_src
-* The Render Package
+* The Render Function
 
 #+begin_src lisp
 (uiop:define-package :webapp/render

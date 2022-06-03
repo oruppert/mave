@@ -1,4 +1,4 @@
-;;;; The Render Package
+;;;; The Render Function
 
 (uiop:define-package :webapp/render
     (:use :common-lisp)
