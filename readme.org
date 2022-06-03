@@ -82,7 +82,7 @@ lost: simply use postmoderns dao.
 (in-package :webapp/database-object)
 
 #+end_src
-*** CRUD Functions
+** CRUD Functions
 
 #+begin_src lisp
 (defgeneric database-insert (object)
@@ -95,7 +95,7 @@ lost: simply use postmoderns dao.
   (:documentation "Delete the given object from the database."))
 
 #+end_src
-*** Database-Object Class
+** Database-Object Class
 
 #+begin_src lisp
 (defclass database-object ()
