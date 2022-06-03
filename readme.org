@@ -2,3 +2,43 @@
 
 This package contains a bunch of classes that make writing lisp
 web applications easier.
+* Package Structure (the webapp/all package)
+
+We are using the ``modern'' lisp package style.  That means every
+file declares its own package and the ``all'' includes all these
+packages.
+
+A nice thing about this structure is, that you do not need to
+include the whole ``webapp'' package, but instead reference only
+the packages you actually need.
+
+#+begin_src lisp
+(uiop:define-package :webapp/all
+  (:use-reexport :webapp/generics
+		 :webapp/html
+		 :webapp/href
+		 :webapp/field
+		 :webapp/render
+		 :webapp/database-object
+		 :webapp/standard-page
+		 :webapp/standard-form)
+  (:nicknames :webapp))
+#+end_src
+* The Render Package
+
+#+begin_src lisp
+(uiop:define-package :webapp/render
+    (:use :common-lisp)
+  (:export :render))
+
+(in-package :webapp/render)
+
+(define-method-combination primary-only (&optional (order :most-specific-first))
+  ((methods () :order order))
+  `(call-method ,(car methods)
+		,(cdr methods)))
+
+(defgeneric render (object view)
+  (:method-combination primary-only :most-specific-last))
+
+#+end_src
