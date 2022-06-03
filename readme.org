@@ -2,26 +2,32 @@
 
 This package contains a bunch of classes that make writing lisp
 web applications easier.
-* Package Structure (the webapp/all package)
+* Package Structure
 
 We are using the ``modern'' lisp package style.  That means every
-file declares its own package and the ``all'' includes all these
-packages.
+file declares its own package and the ``all''-package includes all
+these packages.
 
 A nice thing about this structure is, that you do not need to
-include the whole ``webapp'' package, but instead reference only
-the packages you actually need.
+include the whole ``webapp'' package, but instead use only the
+packages you actually need.
 
 #+begin_src lisp
 (uiop:define-package :webapp/all
-  (:use-reexport :webapp/generics
-		 :webapp/html
-		 :webapp/href
-		 :webapp/field
-		 :webapp/render
-		 :webapp/database-object
-		 :webapp/standard-page
-		 :webapp/standard-form)
+  (:use-reexport
+   ;; defines the render generic function
+   :webapp/render
+   ;; a function based html generator
+   :webapp/html
+   ;; a simple data access object
+   :webapp/database-object
+   :webapp/generics
+   ;; constructing uris
+   :webapp/href
+   :webapp/field
+   ;; defines a bare bones web page
+   :webapp/standard-page
+   :webapp/standard-form)
   (:nicknames :webapp))
 #+end_src
 * The Render Package
@@ -40,5 +46,86 @@ the packages you actually need.
 
 (defgeneric render (object view)
   (:method-combination primary-only :most-specific-last))
+
+#+end_src
+* Database Object
+
+This package defines generic functions for CRUD operations and a
+simple database-object which is able to map every table that has a
+single primary key called id.  If you do not like it, nothing is
+lost: simply use postmoderns dao.
+
+#+begin_src lisp
+(uiop:define-package :webapp/database-object
+  (:use :common-lisp
+	:webapp/utilities)
+  (:export :database-insert
+	   :database-update
+	   :database-delete
+	   :database-object
+	   :object-id))
+
+(in-package :webapp/database-object)
+
+#+end_src
+generic functions
+
+#+begin_src lisp
+(defgeneric database-insert (object)
+  (:documentation "Insert the given object into the database."))
+
+(defgeneric database-update (object)
+  (:documentation "Update the database from the given object."))
+
+(defgeneric database-delete (object)
+  (:documentation "Delete the given object from the database."))
+
+#+end_src
+database-object
+
+#+begin_src lisp
+(defclass database-object ()
+  ((id :initarg :id :initform nil :accessor object-id)))
+
+(defmethod slot-unbound (class (self database-object) slot-name)
+  (assert (object-id self))
+  (setf (slot-value self slot-name)
+	(caar (postmodern:query
+	       (format nil "select ~a from ~a where id = ~a"
+		       (postmodern:sql-escape slot-name)
+		       (postmodern:sql-escape (class-name class))
+		       (postmodern:sql-escape (object-id self)))))))
+
+(defmethod database-insert ((self database-object))
+  (assert (null (object-id self)))
+  (setf (object-id self)
+	(caar
+	 (postmodern:query
+	  (format nil "insert into ~a(~{~a~^, ~}) values(~{~a~^, ~}) returning id"
+		  (postmodern:sql-escape (class-name (class-of self)))
+		  (mapcar #'postmodern:sql-escape (bound-slots self))
+		  (mapcar #'postmodern:sql-escape (bound-values self))))))
+  self)
+
+(defmethod database-update ((self database-object))
+  (assert (object-id self))
+  (postmodern:query
+   (format nil "update ~a set ~{~a = ~a~^, ~} where id = ~a"
+	   (postmodern:sql-escape (class-name (class-of self)))
+	   (mapcan #'list
+		   (mapcar #'postmodern:sql-escape (bound-slots self))
+		   (mapcar #'postmodern:sql-escape (bound-values self)))
+	   (postmodern:sql-escape (object-id self))))
+  self)
+
+(defmethod database-delete ((self database-object))
+  (assert (object-id self))
+  (postmodern:query
+   (format nil "delete from ~a where id = ~a"
+	   (postmodern:sql-escape (class-name (class-of self)))
+	   (postmodern:sql-escape (object-id self))))
+  (setf (object-id self) nil)
+  self)
+
 
 #+end_src

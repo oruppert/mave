@@ -1,4 +1,9 @@
-;;;; package
+;;;; Database Object
+
+;;; This package defines generic functions for CRUD operations and a
+;;; simple database-object which is able to map every table that has a
+;;; single primary key called id.  If you do not like it, nothing is
+;;; lost: simply use postmoderns dao.
 
 (uiop:define-package :webapp/database-object
   (:use :common-lisp
@@ -11,7 +16,7 @@
 
 (in-package :webapp/database-object)
 
-;;;; generic functions
+;;; generic functions
 
 (defgeneric database-insert (object)
   (:documentation "Insert the given object into the database."))
@@ -22,7 +27,7 @@
 (defgeneric database-delete (object)
   (:documentation "Delete the given object from the database."))
 
-;;;; database-object
+;;; database-object
 
 (defclass database-object ()
   ((id :initarg :id :initform nil :accessor object-id)))
