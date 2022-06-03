@@ -2,6 +2,10 @@
 
 This package contains a bunch of classes that make writing lisp
 web applications easier.
+
+- [[Package Structure]]
+
+
 * Package Structure
 
 We are using the ``modern'' lisp package style.  That means every
