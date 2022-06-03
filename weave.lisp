@@ -197,8 +197,8 @@
 (defmethod print-org :before ((self section) stream)
   (with-slots (first) self
     (if (not first)
-	(format stream "* ~a~%" (section-title self))
-	(format stream "** ~a~%" (section-title self)))))
+	(format stream "*** ~a~%" (section-title self))
+	(format stream "* ~a~%" (section-title self)))))
 
 (defmethod print-org :before ((self code-block) stream)
   (format stream "#+begin_src lisp~%"))

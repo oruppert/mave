@@ -1,4 +1,4 @@
-** Introduction
+* Introduction
 
 This package contains a bunch of classes that make writing lisp
 web applications easier.  This document is divided into the
@@ -16,7 +16,7 @@ following sections.  Each section corresponds to a file/package.
 
 
 
-** Package Structure
+* Package Structure
 
 We are using the ``modern'' lisp package style.  That means every
 file declares its own package and the ``all''-package includes all
@@ -44,7 +44,7 @@ packages you actually need.
    :webapp/standard-form)
   (:nicknames :webapp))
 #+end_src
-** The Render Function
+* The Render Function
 
 #+begin_src lisp
 (uiop:define-package :webapp/render
@@ -62,7 +62,7 @@ packages you actually need.
   (:method-combination primary-only :most-specific-last))
 
 #+end_src
-** Database Object
+* Database Object
 
 This package defines generic functions for CRUD operations and a
 simple database-object which is able to map every table that has a
@@ -82,7 +82,7 @@ lost: simply use postmoderns dao.
 (in-package :webapp/database-object)
 
 #+end_src
-* CRUD Functions
+*** CRUD Functions
 
 #+begin_src lisp
 (defgeneric database-insert (object)
@@ -95,7 +95,7 @@ lost: simply use postmoderns dao.
   (:documentation "Delete the given object from the database."))
 
 #+end_src
-* Database-Object Class
+*** Database-Object Class
 
 #+begin_src lisp
 (defclass database-object ()
