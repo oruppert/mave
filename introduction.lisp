@@ -5,7 +5,11 @@
 ;;; following sections.
 
 ;;; - [[#package-structure][Package Structure]]
-;;; - [[#the-render-function][The Render Function]]
-;;; - [[#database-object][Database Object]]
+
+;;; - [[#the-render-function][The Render Function]] The
+
+;;; - The [[#database-object][Database Object]] section defines the
+;;;   CRUD protocol used to access the database.
+
 
 
