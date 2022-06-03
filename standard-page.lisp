@@ -32,7 +32,8 @@
 (defmethod page-title (object (self standard-page))
   (if (slot-boundp self 'title)
       (slot-value self 'title)
-      (call-next-method)))
+      (when (next-method-p)
+	(call-next-method))))
 
 (defmethod page-style append ((self standard-page))
   nil)
