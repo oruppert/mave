@@ -2,7 +2,6 @@
 
 (uiop:define-package :webapp/standard-page
   (:use :common-lisp
-	:webapp/generics
 	:webapp/render
 	:webapp/html)
   (:export :page-title
