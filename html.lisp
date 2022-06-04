@@ -6,7 +6,7 @@
    #:html-string
    #:print-html-to-string
    #:print-html
-   ;; special elements
+   ;; text only elements
    #:style
    #:script))
 
@@ -51,6 +51,7 @@
   ((string :initarg :string)))
 
 (defun html-string (string)
+  (check-type string string)
   (make-instance 'html-string :string string))
 
 (defmethod print-html ((self html-string) stream)
@@ -139,19 +140,19 @@
 (defun style (&rest attributes/children)
   (multiple-value-bind (attributes children)
       (html-destruct attributes/children)
-    (make-instance 'html-element
-		   :name 'style
-		   :attributes attributes
-		   :children (mapcar #'html-string children))))
+    (let ((string (format nil "~%~{~A~%~}"
+			  (alexandria:flatten children))))
+      (make-instance 'html-element
+		     :name 'style
+		     :attributes attributes
+		     :children (list (html-string string))))))
 
 (defun script (&rest attributes/children)
   (multiple-value-bind (attributes children)
       (html-destruct attributes/children)
-    (make-instance 'html-element
-		   :name 'script
-		   :attributes attributes
-		   :children (mapcar #'html-string children))))
-
-
-
-
+    (let ((string (format nil "~%~{~A~%~}"
+			  (alexandria:flatten children))))
+      (make-instance 'html-element
+		     :name 'script
+		     :attributes attributes
+		     :children (list (html-string string))))))
