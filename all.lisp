@@ -17,10 +17,10 @@
    ;; a simple data access object
    :webapp/database-object
    :webapp/generics
+
    :webapp/field-access-protocol
    ;; constructing uris
    :webapp/href
-   :webapp/field
    ;; defines a bare bones web page
    :webapp/standard-page
    :webapp/standard-form)

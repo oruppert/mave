@@ -35,7 +35,7 @@
   (string-capitalize name))
 
 (defmethod field-value (object name)
-  (slot-value object ame))
+  (slot-value object name))
 
 (defmethod (setf field-value) (value object name)
   (setf (slot-value object name) value))
