@@ -7,9 +7,9 @@
 
 (uiop:define-package :webapp/data-access-object
   (:use :common-lisp
-	:webapp/utilities
-	:webapp/data-access-protocol)
-  (:export :database-object
+	:webapp/data-access-protocol
+	:webapp/utilities)
+  (:export :data-access-object
 	   :object-id))
 
 (in-package :webapp/data-access-object)
