@@ -14,8 +14,11 @@
    :webapp/render
    ;; a function based html generator
    :webapp/html
+
    ;; a simple data access object
+   :webapp/data-access-protocol
    :webapp/database-object
+
    :webapp/generics
 
    :webapp/field-access-protocol
