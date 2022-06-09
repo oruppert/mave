@@ -44,8 +44,10 @@
 (defmethod render (object (self standard-page))
   (print-html-to-string
    (html
-    (head (title (page-title object self))
-	  (style (page-style self)))
+    (head
+     (title (page-title object self))
+     (meta :name "viewport" :content "width=device-width, initial-scale=1")
+     (style (page-style self)))
     (body (when (next-method-p)
 	    (call-next-method))
 	  (script (page-script self))))))
