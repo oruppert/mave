@@ -31,7 +31,7 @@
 (defmethod page-script append ((self standard-page))
   nil)
 
-(defmethod additional-head-elements ((self standard-page))
+(defmethod additional-head-elements append ((self standard-page))
   nil)
 
 (defmethod display-name (object (self standard-page))
