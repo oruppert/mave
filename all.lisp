@@ -24,7 +24,7 @@
    :webapp/field-access-protocol
    ;; constructing uris
    :webapp/href
+
    ;; defines a bare bones web page
-   :webapp/standard-page
-   :webapp/standard-form)
+   :webapp/standard-page)
   (:nicknames :webapp))
