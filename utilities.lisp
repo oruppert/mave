@@ -7,8 +7,8 @@
 (in-package :webapp/utilities)
 
 (defun direct-slots (object)
-  (mapcar #'sb-mop:slot-definition-name
-	  (sb-mop:class-direct-slots (class-of object))))
+  (mapcar #'closer-mop:slot-definition-name
+	  (closer-mop:class-direct-slots (class-of object))))
 
 (defun bound-slots (object)
   (remove-if-not (lambda (slot-name) (slot-boundp object slot-name))
