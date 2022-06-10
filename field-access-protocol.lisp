@@ -4,7 +4,10 @@
   (:use :common-lisp
 	:webapp/html
 	:webapp/utilities)
-  (:export))
+  (:export :list-fields
+	   :field-label
+	   :field-value
+	   :render-input))
 
 (in-package :webapp/field-access-protocol)
 
