@@ -21,8 +21,6 @@
    :webapp/data-access-protocol
    :webapp/data-access-object
 
-   :webapp/generics
-
    :webapp/field-access-protocol
    ;; constructing uris
    :webapp/href

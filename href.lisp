@@ -1,7 +1,8 @@
 (uiop:define-package :webapp/href
-  (:use :common-lisp
-	:webapp/generics)
-  (:export :href))
+  (:use :common-lisp)
+  (:export :parameter-name
+	   :parameter-value
+	   :href))
 
 (in-package :webapp/href)
 

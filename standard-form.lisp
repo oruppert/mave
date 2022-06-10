@@ -1,7 +1,7 @@
 (uiop:define-package :webapp/standard-form
   (:use :common-lisp
-	:webapp/generics
 	:webapp/display-protocol
+	:webapp/field-access-protocol
 	:webapp/html)
   (:export :standard-form))
 
@@ -12,9 +12,9 @@
 
 (defmethod display (object (self standard-form))
   (form :method :post
-	(loop for name in (list-fields object)
+	(loop for name in (list-fields object nil)
 	      collect (p (label (field-label object name)
-				(render-field object name))))
+				(render-input object name))))
 	(p (input :type :submit :value (form-submit self)))))
 
 
