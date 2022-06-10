@@ -2,7 +2,7 @@
 
 (uiop:define-package :webapp/standard-page
   (:use :common-lisp
-	:webapp/render
+	:webapp/display-protocol
 	:webapp/html)
   (:export :page-title
 	   :page-style
@@ -41,7 +41,7 @@
 (defmethod page-script append ((self standard-page))
   nil)
 
-(defmethod render (object (self standard-page))
+(defmethod display (object (self standard-page))
   (print-html-to-string
    (html
     (head

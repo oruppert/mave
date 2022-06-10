@@ -10,10 +10,12 @@
 
 (uiop:define-package :webapp/all
   (:use-reexport
-   ;; defines the render generic function
-   :webapp/render
+
    ;; a function based html generator
    :webapp/html
+
+   ;; display-protocol
+   :webapp/display-protocol
 
    ;; data access
    :webapp/data-access-protocol
