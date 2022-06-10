@@ -2,7 +2,8 @@
 
 (uiop:define-package :webapp/render
     (:use :common-lisp)
-  (:export :render))
+  (:export :render
+	   :display-name))
 
 (in-package :webapp/render)
 
@@ -13,4 +14,7 @@
 
 (defgeneric render (object view)
   (:method-combination primary-only :most-specific-last))
+
+(defgeneric display-name (object view))
+
 

@@ -3,8 +3,6 @@
 (uiop:define-package :webapp/generics
   (:use :common-lisp)
   (:export
-   ;; display-name
-   #:display-name
    ;; parameter
    #:parameter-name
    #:parameter-value
@@ -15,10 +13,6 @@
    :render-field))
 
 (in-package :webapp/generics)
-
-;;;; display-name
-
-(defgeneric display-name (object))
 
 ;;;; parameter
 
