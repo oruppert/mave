@@ -28,7 +28,13 @@
 ;;;; Default Implementation
 
 (defclass standard-page ()
-  ((name :initarg :name)))
+  ((title :initarg :title)))
+
+(defmethod display-name (object (self standard-page))
+  (if (slot-boundp self 'title)
+      (slot-value self 'title)
+      (when (next-method-p)
+	(call-next-method))))
 
 (defmethod page-style append ((self standard-page))
   nil)
