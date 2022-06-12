@@ -17,6 +17,10 @@
 
 (defgeneric display-name (object view))
 
+(defmethod display-name (object view)
+  "Ensure display-name is always defined."
+  (princ-to-string (or view object)))
+
 
 
 
