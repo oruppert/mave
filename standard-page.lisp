@@ -11,6 +11,8 @@
 
 (in-package :webapp/standard-page)
 
+;;;; Generic Functions
+
 (defgeneric page-style (page)
   (:documentation "Returns the styles of the given page as a list of strings.")
   (:method-combination append :most-specific-last))
@@ -20,7 +22,10 @@
   (:method-combination append :most-specific-last))
 
 (defgeneric additional-head-elements (page)
+  (:documentation "Returns a list of additional html head elements.")
   (:method-combination append :most-specific-last))
+
+;;;; Default Implementation
 
 (defclass standard-page ()
   ((name :initarg :name)))
