@@ -18,12 +18,9 @@
    :webapp/data-access-protocol
    :webapp/data-access-object
 
-
    ;; a function based html generator
    :webapp/html
 
-
-   :webapp/field-access-protocol
    ;; constructing uris
    :webapp/href
 
