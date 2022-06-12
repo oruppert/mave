@@ -3,4 +3,5 @@
   :depends-on ("hunchentoot"
                "postmodern"
 	       "closer-mop"
+	       "alexandria"
                "webapp/all"))
