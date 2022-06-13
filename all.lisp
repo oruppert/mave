@@ -13,6 +13,9 @@
    :webapp/display-protocol
    :webapp/database-protocol
    :webapp/database-object
+
+   :webapp/input-protocol
+
    :webapp/form-protocol
 
 
