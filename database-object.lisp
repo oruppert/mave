@@ -13,13 +13,13 @@
   ((id :initarg :id :initform nil :accessor object-id)))
 
 (defmethod slot-unbound (class (self database-object) slot-name)
-  (assert (object-id self))
   (setf (slot-value self slot-name)
-	(caar (postmodern:query
-	       (format nil "select ~a from ~a where id = ~a"
-		       (postmodern:sql-escape slot-name)
-		       (postmodern:sql-escape (class-name class))
-		       (postmodern:sql-escape (object-id self)))))))
+	(when (object-id self)
+	  (caar (postmodern:query
+		 (format nil "select ~a from ~a where id = ~a"
+			 (postmodern:sql-escape slot-name)
+			 (postmodern:sql-escape (class-name class))
+			 (postmodern:sql-escape (object-id self))))))))
 
 (defmethod database-insert ((self database-object))
   (assert (null (object-id self)))
