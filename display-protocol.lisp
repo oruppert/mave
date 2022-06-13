@@ -15,7 +15,8 @@
 (defgeneric display (object view)
   (:method-combination primary-only :most-specific-last))
 
-(defgeneric display-name (object view))
+(defgeneric display-name (object view)
+  (:argument-precedence-order view object))
 
 (defmethod display-name (object view)
   "Ensure display-name is always defined."
