@@ -3,7 +3,7 @@
 (uiop:define-package :webapp/form-protocol
   (:use :common-lisp
 	:webapp/html
-	:webapp/utilities)
+	:webapp/slot-utilities)
   (:export :handle-form
 	   :form-slots
 	   :form-label

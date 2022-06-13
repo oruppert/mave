@@ -3,7 +3,7 @@
 (uiop:define-package :webapp/database-object
   (:use :common-lisp
 	:webapp/database-protocol
-	:webapp/utilities)
+	:webapp/slot-utilities)
   (:export :database-object
 	   :object-id))
 

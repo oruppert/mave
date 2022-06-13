@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/utilities
+(uiop:define-package :webapp/slot-utilities
     (:use :common-lisp)
   (:export :direct-slots
 	   :bound-slots
 	   :bound-values))
 
-(in-package :webapp/utilities)
+(in-package :webapp/slot-utilities)
 
 (defun direct-slots (object)
   (mapcar #'closer-mop:slot-definition-name
