@@ -31,6 +31,8 @@
 
 (defmethod print-html ((null null) stream))
 
+(defmethod print-html ((object (eql :null)) stream))
+
 (defmethod print-html ((list list) stream)
   (dolist (item list)
     (print-html item stream)))
