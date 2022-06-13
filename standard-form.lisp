@@ -1,8 +1,8 @@
 (uiop:define-package :webapp/standard-form
   (:use :common-lisp
-	:webapp/display-protocol
-	:webapp/data-access-protocol
 	:webapp/form-protocol
+	:webapp/database-protocol
+	:webapp/display-protocol
 	:webapp/html)
   (:export :standard-form))
 

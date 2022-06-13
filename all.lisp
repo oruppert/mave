@@ -10,14 +10,9 @@
 
 (uiop:define-package :webapp/all
   (:use-reexport
-
-   ;; the display and display-name generic functions
    :webapp/display-protocol
-
-   ;; data access
-   :webapp/data-access-protocol
-   :webapp/data-access-object
-
+   :webapp/database-protocol
+   :webapp/database-object
    :webapp/form-protocol
 
 

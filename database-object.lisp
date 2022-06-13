@@ -1,23 +1,18 @@
 ;;;; Database Object
 
-;;; This package defines generic functions for CRUD operations and a
-;;; simple database-object which is able to map every table that has a
-;;; single primary key called id.  If you do not like it, nothing is
-;;; lost: simply use postmoderns dao.
-
-(uiop:define-package :webapp/data-access-object
+(uiop:define-package :webapp/database-object
   (:use :common-lisp
-	:webapp/data-access-protocol
+	:webapp/database-protocol
 	:webapp/utilities)
-  (:export :data-access-object
+  (:export :database-object
 	   :object-id))
 
-(in-package :webapp/data-access-object)
+(in-package :webapp/database-object)
 
-(defclass data-access-object ()
+(defclass database-object ()
   ((id :initarg :id :initform nil :accessor object-id)))
 
-(defmethod slot-unbound (class (self data-access-object) slot-name)
+(defmethod slot-unbound (class (self database-object) slot-name)
   (assert (object-id self))
   (setf (slot-value self slot-name)
 	(caar (postmodern:query
@@ -26,7 +21,7 @@
 		       (postmodern:sql-escape (class-name class))
 		       (postmodern:sql-escape (object-id self)))))))
 
-(defmethod database-insert ((self data-access-object))
+(defmethod database-insert ((self database-object))
   (assert (null (object-id self)))
   (setf (object-id self)
 	(caar
@@ -37,7 +32,7 @@
 		  (mapcar #'postmodern:sql-escape (bound-values self))))))
   self)
 
-(defmethod database-update ((self data-access-object))
+(defmethod database-update ((self database-object))
   (assert (object-id self))
   (postmodern:query
    (format nil "update ~a set ~{~a = ~a~^, ~} where id = ~a"
@@ -48,7 +43,7 @@
 	   (postmodern:sql-escape (object-id self))))
   self)
 
-(defmethod database-delete ((self data-access-object))
+(defmethod database-delete ((self database-object))
   (assert (object-id self))
   (postmodern:query
    (format nil "delete from ~a where id = ~a"
@@ -57,7 +52,7 @@
   (setf (object-id self) nil)
   self)
 
-(defmethod database-upsert ((self data-access-object))
+(defmethod database-upsert ((self database-object))
   (if (object-id self)
       (database-update self)
       (database-insert self)))
