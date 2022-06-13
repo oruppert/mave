@@ -18,6 +18,9 @@
    :webapp/data-access-protocol
    :webapp/data-access-object
 
+   :webapp/form-protocol
+
+
    ;; a function based html generator
    :webapp/html
 
