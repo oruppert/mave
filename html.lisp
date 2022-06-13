@@ -77,7 +77,8 @@
   (write-char #\< stream)
   (write-string (string-downcase (element-name self)) stream)
   (loop for (k v) on (element-attributes self) by #'cddr do
-    (unless (null v)
+    (unless (or (null v)
+		(eq v :null))
       (write-char #\Space stream)
       (write-string (string-downcase k) stream)
       (unless (eq v t)
