@@ -131,6 +131,7 @@
 (define-element p)
 (define-element section)
 (define-element table)
+(define-element span)
 (define-element td)
 (define-element th)
 (define-element title)
