@@ -27,6 +27,8 @@
    ;; constructing uris
    :webapp/href
 
+   :webapp/standard-form
+
    ;; defines a bare bones web page
    :webapp/standard-page)
   (:nicknames :webapp))
