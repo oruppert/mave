@@ -3,11 +3,17 @@
 (uiop:define-package :webapp/input-protocol
   (:use :common-lisp
 	:webapp/html)
-  (:export :input-value
+  (:export :input-slots
+	   :input-value
 	   :input-label
 	   :render-input))
 
 (in-package :webapp/input-protocol)
+
+(defgeneric input-slots (object context)
+  (:method (object context)
+    (declare (ignore context))
+    (direct-slots object)))
 
 (defgeneric input-value (object slot-name)
   (:method (object slot-name)
