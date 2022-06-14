@@ -1,17 +1,31 @@
+;;;; Standard Form
+
 (uiop:define-package :webapp/standard-form
   (:use :common-lisp
-	:webapp/form-protocol
+	:webapp/input-protocol
 	:webapp/database-protocol
 	:webapp/display-protocol
-	:webapp/html)
+	:webapp/html
+	:webapp/slot-utilities)
   (:export :standard-form))
 
 (in-package :webapp/standard-form)
+
+;;;; Generic Functions
+
+(defgeneric handle-form (object form method))
+
+(defgeneric form-slots (object))
+
+;;;; Default Implementation
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)
    (delete-button-value :initarg :delete-button-value :initform nil)
    (submit-button-value :initarg :submit-button-value :initform nil)))
+
+(defmethod form-slots (object)
+  (direct-slots object))
 
 (defmethod handle-form (object (self standard-form) (method (eql :get)))
   (display object self))
@@ -24,7 +38,7 @@
 
 (defmethod handle-form (object (self standard-form) (method (eql :post)))
   (dolist (slot-name (form-slots object))
-    (setf (form-value object slot-name)
+    (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
   (database-upsert object)
@@ -38,8 +52,8 @@
     (form :method :post
 	  (input :type :submit :hidden t)
 	  (loop for slot-name in (form-slots object)
-		collect (p (label (form-label object slot-name)
-				  (form-input object slot-name))))
+		collect (p (label (input-label object slot-name)
+				  (render-input object slot-name))))
 	  (p
 	   (when allow-delete
 	     (button :name :method :value :delete delete-button-value))
