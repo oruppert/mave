@@ -6,7 +6,8 @@
 	:webapp/database-protocol
 	:webapp/display-protocol
 	:webapp/html)
-  (:export :standard-form))
+  (:export :standard-form
+	   :handle-form))
 
 (in-package :webapp/standard-form)
 
