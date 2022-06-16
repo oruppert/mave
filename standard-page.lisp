@@ -46,8 +46,8 @@
   nil)
 
 (defmethod display-name (object (self standard-page))
-  (if (slot-boundp self 'name)
-      (slot-value self 'name)
+  (if (slot-boundp self 'title)
+      (slot-value self 'title)
       (when (next-method-p)
 	(call-next-method))))
 
