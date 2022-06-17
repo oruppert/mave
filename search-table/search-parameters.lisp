@@ -1,11 +1,11 @@
-(uiop:define-package :webapp/search-parameters
+(uiop:define-package :webapp/search-table/search-parameters
     (:use :common-lisp)
   (:export :search-parameters
 	   :search-columns
 	   :search-offset
 	   :search-limit))
 
-(in-package :webapp/search-parameters)
+(in-package :webapp/search-table/search-parameters)
 
 (defclass search-parameters ()
   ((columns :initarg :columns :reader search-columns)
