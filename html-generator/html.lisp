@@ -1,7 +1,7 @@
 (uiop:define-package :webapp/html-generator/html
-  (:use :common-lisp)
+  (:use :common-lisp
+	:webapp/html-generator/html-destruct)
   (:export
-   #:html-destruct
    #:html-element
    #:html-string
    #:print-html-to-string
@@ -11,14 +11,6 @@
    #:script))
 
 (in-package :webapp/html-generator/html)
-
-(defun html-destruct (attributes/children)
-  (loop while attributes/children
-	for item = (pop attributes/children)
-	when (keywordp item) collect item into attributes
-	and collect (pop attributes/children) into attributes
-	else collect item into children
-	finally (return (values attributes children))))
 
 (defun print-html-to-string (object)
   (with-output-to-string (stream)
