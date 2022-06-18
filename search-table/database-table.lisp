@@ -31,9 +31,6 @@
 (defmethod table-name :around ((self database-table))
   (identifier-name (call-next-method)))
 
-(defmethod table-schema :around ((self database-table))
-  (identifier-name (call-next-method)))
-
 (defmethod table-alias :around ((self database-table))
   (identifier-name (call-next-method)))
 
