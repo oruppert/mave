@@ -1,10 +1,10 @@
 (uiop:define-package :webapp/html-generator/html
   (:use :common-lisp
 	:webapp/html-generator/html-destruct
-	:webapp/html-generator/print-html)
+	:webapp/html-generator/print-html
+	:webapp/html-generator/html-string)
   (:export
    #:html-element
-   #:html-string
    #:print-html-to-string
    #:print-html
    ;; text only elements
@@ -12,17 +12,6 @@
    #:script))
 
 (in-package :webapp/html-generator/html)
-
-(defclass html-string ()
-  ((string :initarg :string)))
-
-(defun html-string (string)
-  (check-type string string)
-  (make-instance 'html-string :string string))
-
-(defmethod print-html ((self html-string) stream)
-  (with-slots (string) self
-    (write-string string stream)))
 
 (defclass void-element ()
   ((name :initarg :name :reader element-name)
