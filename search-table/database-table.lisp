@@ -1,3 +1,5 @@
+;;;; Database Table
+
 (uiop:define-package :webapp/search-table/database-table
   (:use :common-lisp
 	:webapp/search-table/database-column
@@ -35,10 +37,9 @@
 (defmethod table-alias :around ((self database-table))
   (identifier-name (call-next-method)))
 
-(defmethod slot-unbound (class
-			 (self database-table)
+(defmethod slot-unbound (class (self database-table)
 			 (slot-name (eql 'column-names)))
-  (setf (slot-value self 'column-names)
+  (setf (slot-value self slot-name)
 	(postmodern:list-columns (table-name self))))
 
 (defmethod list-columns ((self database-table))
