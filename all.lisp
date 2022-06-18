@@ -12,12 +12,12 @@
   (:use-reexport
    :webapp/display-protocol
    :webapp/database/all
+   :webapp/html-generator/all
 
 
    :webapp/input-protocol
 
-   ;; a function based html generator
-   :webapp/html
+
 
    ;; constructing uris
    :webapp/href

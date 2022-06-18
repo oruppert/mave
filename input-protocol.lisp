@@ -2,7 +2,7 @@
 
 (uiop:define-package :webapp/input-protocol
   (:use :common-lisp
-	:webapp/html
+	:webapp/html-generator/all
 	:webapp/slot-utilities)
   (:export :input-slots
 	   :input-value

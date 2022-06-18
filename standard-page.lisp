@@ -3,7 +3,7 @@
 (uiop:define-package :webapp/standard-page
   (:use :common-lisp
 	:webapp/display-protocol
-	:webapp/html)
+	:webapp/html-generator/all)
   (:export :page-style
 	   :page-script
 	   :additional-head-elements

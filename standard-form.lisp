@@ -5,7 +5,7 @@
 	:webapp/input-protocol
 	:webapp/database/all
 	:webapp/display-protocol
-	:webapp/html)
+	:webapp/html-generator/all)
   (:export :standard-form
 	   :handle-form))
 

@@ -1,4 +1,4 @@
-(uiop:define-package :webapp/html
+(uiop:define-package :webapp/html-generator/html
   (:use :common-lisp)
   (:export
    #:html-destruct
@@ -10,7 +10,7 @@
    #:style
    #:script))
 
-(in-package :webapp/html)
+(in-package :webapp/html-generator/html)
 
 (defun html-destruct (attributes/children)
   (loop while attributes/children
