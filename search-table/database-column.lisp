@@ -32,6 +32,9 @@
   ((name :initarg :name :reader column-name)
    (qualifier :initarg :qualifier :reader column-qualifier)))
 
+(defun database-column (qualifier name)
+  (make-instance 'database-column :name name :qualifier qualifier))
+
 (defmethod column-name :around ((self database-column))
   (identifier-name (call-next-method)))
 
