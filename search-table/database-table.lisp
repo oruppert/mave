@@ -39,7 +39,7 @@
 			 (self database-table)
 			 (slot-name (eql 'column-names)))
   (setf (slot-value self 'column-names)
-	(database-columns (table-name self))))
+	(postmodern:list-columns (table-name self))))
 
 (defmethod list-columns ((self database-table))
   (mapcar (alexandria:curry #'database-column (table-alias self))
