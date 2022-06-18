@@ -11,8 +11,9 @@
 (uiop:define-package :webapp/all
   (:use-reexport
    :webapp/display-protocol
-   :webapp/database-protocol
-   :webapp/database-object
+   :webapp/database/all
+
+
    :webapp/input-protocol
 
    ;; a function based html generator

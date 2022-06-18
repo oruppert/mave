@@ -3,7 +3,7 @@
 (uiop:define-package :webapp/standard-form
   (:use :common-lisp
 	:webapp/input-protocol
-	:webapp/database-protocol
+	:webapp/database/all
 	:webapp/display-protocol
 	:webapp/html)
   (:export :standard-form

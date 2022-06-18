@@ -1,13 +1,13 @@
 ;;;; Database Object
 
-(uiop:define-package :webapp/database-object
+(uiop:define-package :webapp/database/database-object
   (:use :common-lisp
-	:webapp/database-protocol
-	:webapp/slot-utilities)
+	:webapp/database/database-protocol
+	:webapp/database/slot-utilities)
   (:export :database-object
 	   :object-id))
 
-(in-package :webapp/database-object)
+(in-package :webapp/database/database-object)
 
 (defclass database-object ()
   ((id :initarg :id :initform nil :accessor object-id)))
