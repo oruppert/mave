@@ -1,8 +1,10 @@
 ;;;; Database Column
 
 (uiop:define-package :webapp/search-table/database-column
-  (:use :common-lisp)
+  (:use :common-lisp
+	:webapp/search-table/database-utilities)
   (:export
+   #:database-column
    #:column-name
    #:column-qualifier
    #:column-qualified-name
@@ -31,16 +33,10 @@
    (qualifier :initarg :qualifier :reader column-qualifier)))
 
 (defmethod column-name :around ((self database-column))
-  (let ((value (call-next-method)))
-    (etypecase value
-      (string value)
-      (symbol (postmodern:sql-escape value)))))
+  (identifier-name (call-next-method)))
 
 (defmethod column-qualifier :around ((self database-column))
-  (let ((value (call-next-method)))
-    (etypecase value
-      (string value)
-      (symbol (postmodern:sql-escape value)))))
+  (identifier-name (call-next-method)))
 
 (defmethod column-qualified-name ((self database-column))
   (format nil "~a.~a"
