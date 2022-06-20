@@ -1,3 +1,5 @@
+;;;; Html String
+
 (uiop:define-package :webapp/html-generator/html-string
   (:use :common-lisp
 	:webapp/html-generator/print-html)

@@ -1,3 +1,5 @@
+;;;; Html Destruct
+
 (uiop:define-package :webapp/html-generator/html-destruct
   (:use :common-lisp)
   (:export :html-destruct))

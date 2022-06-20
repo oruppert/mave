@@ -1,15 +1,16 @@
+;;;; Print Html
+
 (uiop:define-package :webapp/html-generator/print-html
     (:use :common-lisp)
-  (:export :print-html
-	   :print-html-to-string))
+  (:export :print-html))
 
 (in-package :webapp/html-generator/print-html)
 
+;;;; Generic Function
+
 (defgeneric print-html (object stream))
 
-(defun print-html-to-string (object)
-  (with-output-to-string (stream)
-    (print-html object stream)))
+;;;; Default Methods
 
 (defmethod print-html (object stream)
   (print-html (princ-to-string object) stream))

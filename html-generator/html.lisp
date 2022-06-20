@@ -15,6 +15,7 @@
 
 (in-package :webapp/html-generator/html)
 
+;;;; wir brauchen besseren namen
 (defclass html-element (void-element)
   ((children :initarg :children :reader element-children)))
 
@@ -34,11 +35,36 @@
 	(make-instance 'html-element :name name :attributes attributes
 		       :children children))))
 
+
+
+#+nil
+(defun make-element (name type attributes/children)
+  (multiple-value-bind (attributes children)
+      (html-destruct attributes/children)
+    (ecase type
+      (:void
+       (make-instance 'void-element
+		      :name name
+		      :attributes attributes))
+      (:default
+       (make-instance 'html-element
+		      :name name
+		      :attributes attributes
+		      :children children))
+      (:text
+       (make-instance 'text-element
+		      :name name
+		      :attribute attributes
+		      :children children)))))
+
+
+
 (defmacro define-element (name &optional void-p)
   `(progn
      (defun ,name (&rest attributes/children)
        (apply #'html-element ',name ,void-p attributes/children))
      (export ',name)))
+
 
 (define-element a)
 (define-element body)
