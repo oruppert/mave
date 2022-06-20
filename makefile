@@ -1,7 +1,7 @@
 all: readme.org
 
 clean:
-	rm -f readme.org *.fasl */*.fasl
+	rm -f readme.org *.fasl */*.fasl */*/*.fasl
 
 readme.org: *.lisp webapp.asd
 	sbcl --script weave.lisp < introduction.lisp > readme.org
