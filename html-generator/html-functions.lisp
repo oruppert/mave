@@ -15,7 +15,7 @@
 	      (multiple-value-bind (attributes children)
 		  (html-destruct attributes/children)
 		(make-instance ',class-name
-			       :name ',name
+			       :name ,(string-downcase name)
 			       :attributes attributes
 			       :children children))))
 	 (export-symbol (name)
