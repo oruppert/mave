@@ -3,9 +3,7 @@
 (uiop:define-package :webapp/html-generator/html-functions
   (:use :common-lisp
 	:webapp/html-generator/html-destruct
-	:webapp/html-generator/elements/standard-element
-	:webapp/html-generator/elements/void-element
-	:webapp/html-generator/elements/text-element))
+	:webapp/html-generator/html-elements))
 
 (in-package :webapp/html-generator/html-functions)
 
