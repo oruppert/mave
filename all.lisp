@@ -11,6 +11,7 @@
 (uiop:define-package :webapp/all
   (:use-reexport
    :webapp/display-protocol
+   :webapp/handle-protocol
    :webapp/database/all
    :webapp/html-generator/all
 
