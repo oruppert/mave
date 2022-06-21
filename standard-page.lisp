@@ -28,7 +28,8 @@
 ;;;; Default Implementation
 
 (defclass standard-page ()
-  ((title :initarg :title)))
+  ((title :initarg :title)
+   (doctype :initarg :doctype)))
 
 (defmethod display-name (object (self standard-page))
   (if (slot-boundp self 'title)
@@ -53,14 +54,18 @@
 
 (defmethod display (object (self standard-page))
   (print-html-to-string
-   (html
-    (head
-     (title (display-name object self))
-     (meta :name "viewport" :content "width=device-width, initial-scale=1")
-     (style (page-style self))
-     (additional-head-elements self))
-    (body (when (next-method-p)
-	    (call-next-method))
-	  (script (page-script self))))))
+   (list
+    (when (slot-boundp self 'doctype)
+      (html-string
+       (slot-value self 'doctype)))
+    (html
+     (head
+      (title (display-name object self))
+      (meta :name "viewport" :content "width=device-width, initial-scale=1")
+      (style (page-style self))
+      (additional-head-elements self))
+     (body (when (next-method-p)
+	     (call-next-method))
+	   (script (page-script self)))))))
 
 
