@@ -21,7 +21,7 @@
     `(progn ,@(mapcar #'expand-symbol names)
 	    ,@(mapcar #'export-symbol names))))
 
-(define-html-functions void-element br hr meta input)
+(define-html-functions void-element br hr meta input img)
 
 (define-html-functions text-element style script)
 
