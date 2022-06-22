@@ -12,11 +12,14 @@
   (:use-reexport
    :webapp/display-protocol
    :webapp/handle-protocol
+
    :webapp/database/all
    :webapp/html-generator/all
-
+   :webapp/standard-page/all
 
    :webapp/input-protocol
+
+
 
 
 
@@ -25,6 +28,6 @@
 
    :webapp/standard-form
 
-   ;; defines a bare bones web page
-   :webapp/standard-page)
+
+)
   (:nicknames :webapp))
