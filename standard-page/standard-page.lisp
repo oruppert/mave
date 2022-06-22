@@ -10,7 +10,8 @@
 (in-package :webapp/standard-page/standard-page)
 
 (defclass standard-page ()
-  ((title :initarg :title)))
+  ((title :initarg :title)
+   (doctype :initarg :doctype)))
 
 (defmethod display-name (object (self standard-page))
   (if (slot-boundp self 'title)
@@ -20,6 +21,8 @@
 
 (defmethod display (object (self standard-page))
   (print-html-to-string
+   (when (slot-boundp self 'doctype)
+     (html-string (slot-value self 'doctype)))
    (html
     (head
      (title (display-name object self))
