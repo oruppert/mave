@@ -9,9 +9,9 @@
 
 ;;;; Print Html To String
 
-(defun print-html-to-string (object)
+(defun print-html-to-string (&rest objects)
   (with-output-to-string (stream)
-    (print-html object stream)))
+    (print-html objects stream)))
 
 ;;;; Generic Function
 
