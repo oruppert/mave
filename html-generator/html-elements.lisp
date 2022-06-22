@@ -54,6 +54,6 @@
 (defmethod element-children ((self text-element))
   (list
    (html-string
-    (format nil "~%~{~a~%~}~%"
+    (format nil "~%~{~a~%~}"
 	    (alexandria:flatten
 	     (call-next-method))))))
