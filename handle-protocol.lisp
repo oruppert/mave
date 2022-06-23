@@ -1,6 +1,7 @@
 (uiop:define-package :webapp/handle-protocol
   (:use :common-lisp
-	:webapp/display-protocol))
+	:webapp/display-protocol)
+  (:export :handle))
 
 (in-package :webapp/handle-protocol)
 
