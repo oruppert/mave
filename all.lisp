@@ -17,16 +17,15 @@
    :webapp/html-generator/all
    :webapp/standard-page/all
 
-   :webapp/input-protocol
-
-
+   :webapp/standard-form/input-protocol
+   :webapp/standard-form/standard-form
 
 
 
    ;; constructing uris
    :webapp/href
 
-   :webapp/standard-form
+
 
 
 )

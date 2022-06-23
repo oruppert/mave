@@ -1,15 +1,16 @@
 ;;;; Standard Form
 
-(uiop:define-package :webapp/standard-form
+(uiop:define-package :webapp/standard-form/standard-form
   (:use :common-lisp
-	:webapp/input-protocol
 	:webapp/database/all
 	:webapp/display-protocol
-	:webapp/html-generator/all)
+	:webapp/html-generator/all
+	:webapp/standard-form/input-protocol
+)
   (:export :standard-form
 	   :handle-form))
 
-(in-package :webapp/standard-form)
+(in-package :webapp/standard-form/standard-form)
 
 ;;;; Generic Functions
 
