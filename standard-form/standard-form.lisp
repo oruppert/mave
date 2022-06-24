@@ -4,35 +4,25 @@
   (:use :common-lisp
 	:webapp/database/all
 	:webapp/display-protocol
+	:webapp/handle-protocol
 	:webapp/html-generator/all
-	:webapp/standard-form/input-protocol
-)
-  (:export :standard-form
-	   :handle-form))
+	:webapp/standard-form/input-protocol)
+  (:export :standard-form))
 
 (in-package :webapp/standard-form/standard-form)
-
-;;;; Generic Functions
-
-(defgeneric handle-form (object form method))
-
-;;;; Default Implementation
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)
    (delete-button-value :initarg :delete-button-value :initform nil)
    (submit-button-value :initarg :submit-button-value :initform nil)))
 
-(defmethod handle-form (object (self standard-form) (method (eql :get)))
-  (display object self))
-
-(defmethod handle-form (object (self standard-form) (method (eql :delete)))
+(defmethod handle (object (self standard-form) (method (eql :delete)))
   (with-slots (allow-delete) self
     (assert allow-delete)
     (database-delete object)
     (redirect)))
 
-(defmethod handle-form (object (self standard-form) (method (eql :post)))
+(defmethod handle (object (self standard-form) (method (eql :post)))
   (dolist (slot-name (input-slots object self))
     (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
