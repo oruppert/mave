@@ -3,7 +3,7 @@
 (uiop:define-package :webapp/standard-form/form-protocol
   (:use :common-lisp
 	:webapp/html-generator/all
-	:webapp/standard-form/slot-utilities)
+)
   (:export :input-slots
 	   :input-value
 	   :input-label
