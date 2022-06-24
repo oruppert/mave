@@ -10,17 +10,14 @@
 
 (uiop:define-package :webapp/all
   (:use-reexport
+
    :webapp/display-protocol
    :webapp/handle-protocol
 
    :webapp/database/all
    :webapp/html-generator/all
    :webapp/standard-page/all
-
-   :webapp/standard-form/form-protocol
-   :webapp/standard-form/standard-form
-
-
+   :webapp/standard-form/all
 
    ;; constructing uris
    :webapp/href
