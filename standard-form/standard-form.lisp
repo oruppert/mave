@@ -6,7 +6,7 @@
 	:webapp/display-protocol
 	:webapp/handle-protocol
 	:webapp/html-generator/all
-	:webapp/standard-form/input-protocol)
+	:webapp/standard-form/form-protocol)
   (:export :standard-form))
 
 (in-package :webapp/standard-form/standard-form)

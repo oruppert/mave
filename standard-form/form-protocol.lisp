@@ -1,6 +1,6 @@
 ;;;; Input Protocol
 
-(uiop:define-package :webapp/standard-form/input-protocol
+(uiop:define-package :webapp/standard-form/form-protocol
   (:use :common-lisp
 	:webapp/html-generator/all
 	:webapp/standard-form/slot-utilities)
@@ -9,7 +9,7 @@
 	   :input-label
 	   :render-input))
 
-(in-package :webapp/standard-form/input-protocol)
+(in-package :webapp/standard-form/form-protocol)
 
 (defgeneric input-slots (object context)
   (:method (object context)

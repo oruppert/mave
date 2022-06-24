@@ -17,7 +17,7 @@
    :webapp/html-generator/all
    :webapp/standard-page/all
 
-   :webapp/standard-form/input-protocol
+   :webapp/standard-form/form-protocol
    :webapp/standard-form/standard-form
 
 
