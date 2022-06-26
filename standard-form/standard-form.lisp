@@ -6,15 +6,23 @@
 	:webapp/display-protocol
 	:webapp/handle-protocol
 	:webapp/html-generator/all
-	:webapp/standard-form/form-protocol)
-  (:export :standard-form))
+	:webapp/standard-form/input-protocol)
+  (:export :standard-form
+	   :form-slots))
 
 (in-package :webapp/standard-form/standard-form)
+
+(defgeneric form-slots (object form))
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)
    (delete-button-value :initarg :delete-button-value :initform nil)
    (submit-button-value :initarg :submit-button-value :initform nil)))
+
+(defmethod form-slots (object (self standard-form))
+  (mapcar #'closer-mop:slot-definition-name
+	  (closer-mop:class-direct-slots
+	   (class-of self))))
 
 (defmethod handle (object (self standard-form) (method (eql :delete)))
   (with-slots (allow-delete) self
@@ -23,7 +31,7 @@
     (redirect)))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
-  (dolist (slot-name (input-slots object self))
+  (dolist (slot-name (form-slots object self))
     (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
@@ -37,7 +45,7 @@
       self
     (form :method :post
 	  (input :type :submit :hidden t)
-	  (loop for slot-name in (input-slots object self)
+	  (loop for slot-name in (form-slots object self)
 		collect (p (label (input-label object slot-name)
 				  (render-input object slot-name))))
 	  (p
