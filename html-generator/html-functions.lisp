@@ -27,5 +27,5 @@
 
 (define-html-functions standard-element
   a p h1 li td th tr ul div nav html head body span form link title
-  label table select button option legend section fieldset)
+  main label table select button option legend section fieldset)
 
