@@ -12,17 +12,17 @@
 
 (in-package :webapp/standard-form/standard-form)
 
-(defgeneric form-slots (object form))
+(defgeneric form-slots (object))
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)
    (delete-button-value :initarg :delete-button-value :initform nil)
    (submit-button-value :initarg :submit-button-value :initform nil)))
 
-(defmethod form-slots (object (self standard-form))
+(defmethod form-slots (object)
   (mapcar #'closer-mop:slot-definition-name
 	  (closer-mop:class-direct-slots
-	   (class-of self))))
+	   (class-of object))))
 
 (defmethod handle (object (self standard-form) (method (eql :delete)))
   (with-slots (allow-delete) self
@@ -31,7 +31,7 @@
     (redirect)))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
-  (dolist (slot-name (form-slots object self))
+  (dolist (slot-name (form-slots object))
     (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
@@ -45,7 +45,7 @@
       self
     (form :method :post
 	  (input :type :submit :hidden t)
-	  (loop for slot-name in (form-slots object self)
+	  (loop for slot-name in (form-slots object)
 		collect (p (label (input-label object slot-name)
 				  (render-input object slot-name))))
 	  (p
