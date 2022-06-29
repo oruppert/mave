@@ -15,8 +15,7 @@
 (defgeneric display (object view)
   (:method-combination primary-only :most-specific-last))
 
-(defgeneric display-name (object view)
-  (:argument-precedence-order view object))
+(defgeneric display-name (object view))
 
 
 
