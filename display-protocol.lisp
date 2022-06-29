@@ -18,9 +18,6 @@
 (defgeneric display-name (object view)
   (:argument-precedence-order view object))
 
-(defmethod display-name (object view)
-  "Ensure display-name is always defined."
-  (princ-to-string (or view object)))
 
 
 
