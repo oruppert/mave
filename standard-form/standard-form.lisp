@@ -57,7 +57,7 @@
   (when (hunchentoot:within-request-p)
     (let ((here (hunchentoot:request-uri*)))
       (hunchentoot:redirect
-       (or back location here)))))
+       (or location back here)))))
 
 
 
