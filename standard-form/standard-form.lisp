@@ -7,19 +7,19 @@
 	:webapp/handle-protocol
 	:webapp/html-generator/all
 	:webapp/standard-form/input-protocol)
-  (:export :standard-form
-	   :form-slots))
+  (:export :standard-form-slots
+	   :standard-form))
 
 (in-package :webapp/standard-form/standard-form)
 
-(defgeneric form-slots (object))
+(defgeneric standard-form-slots (object))
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)
    (delete-button-value :initarg :delete-button-value :initform nil)
    (submit-button-value :initarg :submit-button-value :initform nil)))
 
-(defmethod form-slots (object)
+(defmethod standard-form-slots (object)
   (mapcar #'closer-mop:slot-definition-name
 	  (closer-mop:class-direct-slots
 	   (class-of object))))
@@ -31,16 +31,12 @@
     (delete-redirect)))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
-  (dolist (slot-name (form-slots object))
+  (dolist (slot-name (standard-form-slots object))
     (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
   (database-upsert object)
   (submit-redirect))
-
-(defun render-input (object slot-name)
-  (p (label (input-label object slot-name)
-	    (render-input object slot-name))))
 
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete
@@ -49,8 +45,9 @@
       self
     (form :method :post
 	  (input :type :submit :hidden t)
-	  (mapcar (alexandria:curry #'render-input object)
-		  (form-slots object))
+	  (loop for slot-name in (standard-form-slots object)
+		collect (p (label (input-label object slot-name)
+				  (render-input object slot-name))))
 	  (p
 	   (when allow-delete
 	     (button :name :method :value :delete delete-button-value))
