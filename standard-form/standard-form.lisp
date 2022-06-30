@@ -28,7 +28,7 @@
   (with-slots (allow-delete) self
     (assert allow-delete)
     (database-delete object)
-    (redirect)))
+    (delete-redirect)))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
   (dolist (slot-name (form-slots object))
@@ -36,7 +36,7 @@
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
   (database-upsert object)
-  (redirect))
+  (submit-redirect))
 
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete
@@ -53,11 +53,17 @@
 	     (button :name :method :value :delete delete-button-value))
 	   (input :type :submit :value submit-button-value)))))
 
-(hunchentoot:define-easy-handler redirect (back location)
+(defun do-redirect (location)
   (when (hunchentoot:within-request-p)
     (let ((here (hunchentoot:request-uri*)))
-      (hunchentoot:redirect
-       (or location back here)))))
+      (hunchentoot:redirect (or location here)))))
+
+(hunchentoot:define-easy-handler submit-redirect (submit-location location back)
+  (do-redirect (or submit-location location back)))
+
+(hunchentoot:define-easy-handler delete-redirect (delete-location location back)
+  (do-redirect (or delete-location location back)))
+
 
 
 
