@@ -2,6 +2,7 @@
 
 (uiop:define-package :webapp/standard-page/standard-page
   (:use :common-lisp
+	:webapp/handle-protocol
 	:webapp/display-protocol
 	:webapp/html-generator/all
 	:webapp/standard-page/page-protocol)
@@ -12,6 +13,9 @@
 (defclass standard-page ()
   ((title :initarg :title)
    (doctype :initarg :doctype)))
+
+(defmethod handle (object (page standard-page) (method (eql :get)))
+  (display object page))
 
 (defmethod display-name (object (self standard-page))
   (if (slot-boundp self 'title)
