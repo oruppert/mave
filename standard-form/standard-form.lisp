@@ -14,9 +14,9 @@
 
 (defgeneric standard-form-slots (object))
 
-(defgeneric standard-form-submit-value (object form))
+(defgeneric standard-form-submit-value (object))
 
-(defgeneric standard-form-delete-value (object form))
+(defgeneric standard-form-delete-value (object))
 
 (defclass standard-form ()
   ((allow-delete :initarg :allow-delete :initform nil)))
@@ -26,10 +26,10 @@
 	  (closer-mop:class-direct-slots
 	   (class-of object))))
 
-(defmethod standard-form-submit-value (object (self standard-form))
+(defmethod standard-form-submit-value (object)
   nil)
 
-(defmethod standard-form-delete-value (object (self standard-form))
+(defmethod standard-form-delete-value (object)
   "Delete")
 
 (defmethod handle (object (self standard-form) (method (eql :delete)))
@@ -46,8 +46,8 @@
 
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete) self
-    (let ((submit (standard-form-submit-value object self))
-	  (delete (standard-form-delete-value object self)))
+    (let ((submit (standard-form-submit-value object))
+	  (delete (standard-form-delete-value object)))
       (form :method :post
 	    (input :type :submit :hidden t)
 	    (loop for slot-name in (standard-form-slots object)
