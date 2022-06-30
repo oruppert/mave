@@ -38,6 +38,10 @@
   (database-upsert object)
   (submit-redirect))
 
+(defun render-input (object slot-name)
+  (p (label (input-label object slot-name)
+	    (render-input object slot-name))))
+
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete
 	       delete-button-value
@@ -45,9 +49,8 @@
       self
     (form :method :post
 	  (input :type :submit :hidden t)
-	  (loop for slot-name in (form-slots object)
-		collect (p (label (input-label object slot-name)
-				  (render-input object slot-name))))
+	  (mapcar (alexandria:curry #'render-input object)
+		  (form-slots object))
 	  (p
 	   (when allow-delete
 	     (button :name :method :value :delete delete-button-value))
