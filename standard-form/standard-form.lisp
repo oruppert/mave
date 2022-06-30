@@ -14,15 +14,23 @@
 
 (defgeneric standard-form-slots (object))
 
+(defgeneric standard-form-submit-value (object form))
+
+(defgeneric standard-form-delete-value (object form))
+
 (defclass standard-form ()
-  ((allow-delete :initarg :allow-delete :initform nil)
-   (delete-button-value :initarg :delete-button-value :initform nil)
-   (submit-button-value :initarg :submit-button-value :initform nil)))
+  ((allow-delete :initarg :allow-delete :initform nil)))
 
 (defmethod standard-form-slots (object)
   (mapcar #'closer-mop:slot-definition-name
 	  (closer-mop:class-direct-slots
 	   (class-of object))))
+
+(defmethod standard-form-submit-value (object (self standard-form))
+  nil)
+
+(defmethod standard-form-delete-value (object (self standard-form))
+  "Delete")
 
 (defmethod handle (object (self standard-form) (method (eql :delete)))
   (with-slots (allow-delete) self
@@ -39,19 +47,18 @@
   (submit-redirect))
 
 (defmethod display (object (self standard-form))
-  (with-slots (allow-delete
-	       delete-button-value
-	       submit-button-value)
-      self
-    (form :method :post
-	  (input :type :submit :hidden t)
-	  (loop for slot-name in (standard-form-slots object)
-		collect (p (label (input-label object slot-name)
-				  (render-input object slot-name))))
-	  (p
-	   (when allow-delete
-	     (button :name :method :value :delete delete-button-value))
-	   (input :type :submit :value submit-button-value)))))
+  (with-slots (allow-delete) self
+    (let ((submit (standard-form-submit-value object self))
+	  (delete (standard-form-delete-value object self)))
+      (form :method :post
+	    (input :type :submit :hidden t)
+	    (loop for slot-name in (standard-form-slots object)
+		  collect (p (label (input-label object slot-name)
+				    (render-input object slot-name))))
+	    (p
+	     (when allow-delete
+	       (button :name :method :value :delete delete))
+	     (input :type :submit :value submit))))))
 
 (defun do-redirect (location)
   (when (hunchentoot:within-request-p)
