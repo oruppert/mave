@@ -18,6 +18,7 @@
    :webapp/html-generator/all
    :webapp/standard-page/all
    :webapp/standard-form/all
+   :webapp/utilities/all
 
    ;; constructing uris
    :webapp/href
