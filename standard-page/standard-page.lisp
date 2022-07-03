@@ -37,7 +37,7 @@
     (head
      (title (display-name object self))
      (meta :name "viewport" :content "width=device-width, initial-scale=1")
-     (loop for uri in (page-external-scripts self)
+     (loop for uri in (page-external-styles self)
 	   collect (link :rel :stylesheet :href uri))
      (style (page-inline-style self))
      (page-additional-head-elements self))
