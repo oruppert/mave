@@ -10,6 +10,7 @@
 
 (hunchentoot:define-easy-handler (style-handler :uri *uri*) ()
   (setf (hunchentoot:content-type*) "text/css")
+  (setf (hunchentoot:header-out :cache-control) "max-age:3600")
   #.(uiop:read-file-string
      (merge-pathnames
       "tachyons.min.css"

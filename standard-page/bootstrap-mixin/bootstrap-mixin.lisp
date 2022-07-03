@@ -13,6 +13,7 @@
 
 (hunchentoot:define-easy-handler (stylesheet-handler :uri *stylesheet-uri*) ()
   (setf (hunchentoot:content-type*) "text/css")
+  (setf (hunchentoot:header-out :cache-control) "max-age:3600")
   #.(uiop:read-file-string
      (merge-pathnames
       "bootstrap.min.css"
@@ -21,6 +22,7 @@
 
 (hunchentoot:define-easy-handler (javascript-handler :uri *javascript-uri*) ()
   (setf (hunchentoot:content-type*) "application/javascript")
+  (setf (hunchentoot:header-out :cache-control) "max-age:3600")
   #.(uiop:read-file-string
      (merge-pathnames
       "bootstrap.bundle.min.js"
