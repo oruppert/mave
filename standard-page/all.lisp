@@ -5,5 +5,6 @@
 		 ;; mixins
 		 :webapp/standard-page/tachyons-mixin/tachyons-mixin
 		 :webapp/standard-page/bootstrap-mixin/bootstrap-mixin
-		 :webapp/standard-page/bulma-mixin/bulma-mixin))
+		 :webapp/standard-page/bulma-mixin/bulma-mixin
+		 :webapp/standard-page/water-mixin/water-mixin))
 
