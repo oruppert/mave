@@ -31,15 +31,15 @@
     (head
      (title (display-name object self))
      (meta :name "viewport" :content "width=device-width, initial-scale=1")
-     (loop for uri in (page-style-uris self)
+     (loop for uri in (page-external-scripts self)
 	   collect (link :rel :stylesheet :href uri))
-     (style (page-style self))
-     (additional-head-elements self))
+     (style (page-inline-style self))
+     (page-additional-head-elements self))
     (body (when (next-method-p)
 	    (call-next-method))
-	  (loop for uri in (page-script-uris self)
+	  (loop for uri in (page-external-scripts self)
 		collect (script :src uri))
-	  (script (page-script self))))))
+	  (script (page-inline-script self))))))
 
 
 
