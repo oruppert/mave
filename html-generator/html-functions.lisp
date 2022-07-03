@@ -7,6 +7,14 @@
 
 (in-package :webapp/html-generator/html-functions)
 
+;;; XXX: is it possible to call alexandria:flatten
+;;; before destructing the arguments?  It would
+;;; allow functions to return attributes:
+;;;
+;;;    (href "/url" param1) => (list :href "/url?param1=")
+;;;
+;;;    (class :foo :bar :baz) => (list :class "foo bar baz")
+
 (defmacro define-html-functions (class-name &rest names)
   (flet ((expand-symbol (name)
 	   `(defun ,name (&rest attributes/children)
