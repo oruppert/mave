@@ -10,12 +10,18 @@
 
 (in-package :webapp/standard-page/standard-page)
 
+;;; Class definition.
+
 (defclass standard-page ()
   ((title :initarg :title)
    (doctype :initarg :doctype)))
 
+;;; Implement the handle protocol.
+
 (defmethod handle (object (page standard-page) (method (eql :get)))
   (display object page))
+
+;;; Implement the display protocol.
 
 (defmethod display-name (object (self standard-page))
   (if (slot-boundp self 'title)
@@ -40,6 +46,23 @@
 	  (loop for uri in (page-external-scripts self)
 		collect (script :src uri))
 	  (script (page-inline-script self))))))
+
+;;; Implement the page protocol. 
+
+(defmethod page-external-scripts append ((self standard-page))
+  (values nil))
+
+(defmethod page-external-styles append ((self standard-page))
+  (values nil))
+
+(defmethod page-inline-style append ((self standard-page))
+  (values nil))
+
+(defmethod page-inline-script append ((self standard-page))
+  (values nil))
+
+(defmethod page-additional-head-elements append ((self standard-page))
+  (values nil))
 
 
 
