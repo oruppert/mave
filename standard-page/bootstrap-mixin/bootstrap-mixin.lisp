@@ -19,7 +19,7 @@
       (asdf/pathname:pathname-directory-pathname
        (or *compile-file-truename* *load-truename*)))))
 
-(hunchentoot:define-easy-handler (stylesheet-handler :uri *stylesheet-uri*) ()
+(hunchentoot:define-easy-handler (javascript-handler :uri *javascript-uri*) ()
   (setf (hunchentoot:content-type*) "application/javascript")
   #.(uiop:read-file-string
      (merge-pathnames
