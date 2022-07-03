@@ -1,6 +1,7 @@
 (uiop:define-package :webapp/standard-page/bootstrap-mixin/bootstrap-mixin
   (:use :common-lisp
 	:webapp/standard-page/page-protocol)
+  (:nicknames :webapp/standard-page/bootstrap-mixin)
   (:export :bootstrap-mixin))
 
 (in-package :webapp/standard-page/bootstrap-mixin/bootstrap-mixin)

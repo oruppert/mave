@@ -1,6 +1,7 @@
 (uiop:define-package :webapp/standard-page/tachyons-mixin/tachyons-mixin
   (:use :common-lisp
 	:webapp/standard-page/page-protocol)
+  (:nicknames :webapp/standard-page/tachyons-mixin)
   (:export :tachyons-mixin))
 
 (in-package :webapp/standard-page/tachyons-mixin/tachyons-mixin)
