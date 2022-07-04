@@ -6,7 +6,6 @@
 	:webapp/display-protocol
 	:webapp/handle-protocol
 	:webapp/html-generator/all
-	:webapp/utilities/all
 	:webapp/standard-form/input-protocol)
   (:export :standard-form-slots
 	   :standard-form))
@@ -36,16 +35,14 @@
 (defmethod handle (object (self standard-form) (method (eql :delete)))
   (with-slots (allow-delete) self
     (assert allow-delete)
-    (database-delete object)
-    (http-redirect (delete-redirect-location))))
+    (database-delete object)))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
   (dolist (slot-name (standard-form-slots object))
     (setf (input-value object slot-name)
 	  (hunchentoot:post-parameter
 	   (string-downcase slot-name))))
-  (database-upsert object)
-  (http-redirect (default-redirect-location)))
+  (database-upsert object))
 
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete) self
@@ -60,11 +57,3 @@
 	     (when allow-delete
 	       (button :name :method :value :delete delete))
 	     (input :type :submit :value submit))))))
-
-(hunchentoot:define-easy-handler default-redirect-location
-    (location back)
-  (or location back))
-
-(hunchentoot:define-easy-handler delete-redirect-location
-    (delete-location location back)
-  (or delete-location location back))
