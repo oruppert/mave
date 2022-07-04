@@ -20,11 +20,6 @@
    :webapp/standard-form/all
    :webapp/utilities/all
 
-   ;; constructing uris
-   :webapp/href
-
-
-
 
 )
   (:nicknames :webapp))
