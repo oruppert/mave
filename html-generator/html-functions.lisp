@@ -19,7 +19,10 @@
   (flet ((expand-symbol (name)
 	   `(defun ,name (&rest attributes/children)
 	      (multiple-value-bind (attributes children)
+		  #+nil
 		  (html-destruct attributes/children)
+
+		  (html-destruct (alexandria:flatten attributes/children))
 		(make-instance ',class-name
 			       :name ,(string-downcase name)
 			       :attributes attributes
