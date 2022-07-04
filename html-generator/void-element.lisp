@@ -12,7 +12,7 @@
 
 (in-package :webapp/html-generator/void-element)
 
-(defclass void-element ()
+(defclass void-element (abstract-element)
   ((name :initarg :name :reader element-name)
    (attributes :initarg :attributes :reader element-attributes)))
 
@@ -41,7 +41,7 @@
   (write-char #\> stream))
 
 (defun make-void-element (name attributes)
-  (make-instance 'void-element :name name :attributes attributes))
+  (make-instance 'void-element :name name :attribtues attributes))
 
 (defun br (&rest attributes)
   (make-void-element "br" attributes))
@@ -57,3 +57,5 @@
 
 (defun img (&rest attributes)
   (make-void-element "img" attributes))
+
+
