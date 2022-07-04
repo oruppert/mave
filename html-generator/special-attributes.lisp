@@ -2,7 +2,8 @@
   (:use :common-lisp)
   (:export :parameter-name
 	   :parameter-value
-	   :href))
+	   :href
+	   :action))
 
 (in-package :webapp/html-generator/special-attributes)
 
@@ -24,7 +25,7 @@
 	  collect (make-parameter parameter (pop parameters))
 	else collect parameter))
 
-(defun href (path &rest parameters)
+(defun make-uri (path parameters)
   (format nil "~@[~a~]?~{~a=~a~^&~}" path
 	  (mapcan (lambda (parameter)
 		    (when parameter
@@ -34,3 +35,25 @@
 			      (hunchentoot:url-encode (princ-to-string value))))))
 		  (cons (back-parameter)
 			(parse-parameters parameters)))))
+
+(defun href (path &rest parameters)
+  (list :href (make-uri path parameters)))
+
+(defun action (path &rest parameters)
+  (list :action (make-uri path parameters)))
+
+#+nil
+(defgeneric make-class (object)
+  (:method ((string string))
+    (values string))
+  (:method ((null null))
+    (values nil))
+  (:method ((symbol symbol))
+    (string-downcase symbol)))
+
+#+nil
+(defun class-name (&rest classes)
+  (list :class (format nil "~{~a~^ ~}"
+		       (loop for class in (alexandria:flatten)
+			     when class collect (make-class class)))))
+
