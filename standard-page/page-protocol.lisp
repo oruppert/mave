@@ -9,7 +9,7 @@
 (in-package :webapp/standard-page/page-protocol)
 
 (defgeneric page-external-scripts (page)
-  (:documentation "Retuns a list of script uris for the given page.")
+  (:documentation "Returns a list of script uris for the given page.")
   (:method-combination append :most-specific-last))
 
 (defgeneric page-external-styles (page)
