@@ -3,7 +3,8 @@
   (:export :parameter-name
 	   :parameter-value
 	   :href
-	   :action))
+	   :action
+	   :classes))
 
 (in-package :webapp/html-generator/special-attributes)
 
@@ -42,18 +43,11 @@
 (defun action (path &rest parameters)
   (list :action (make-uri path parameters)))
 
-#+nil
-(defgeneric make-class (object)
-  (:method ((string string))
-    (values string))
-  (:method ((null null))
-    (values nil))
-  (:method ((symbol symbol))
-    (string-downcase symbol)))
-
-#+nil
-(defun class-name (&rest classes)
+(defun classes (&rest classes)
   (list :class (format nil "~{~a~^ ~}"
-		       (loop for class in (alexandria:flatten)
-			     when class collect (make-class class)))))
+		       (loop for class in (alexandria:flatten classes)
+			     when class collect (etypecase class
+						  (string class)
+						  (symbol
+						   (string-downcase class)))))))
 
