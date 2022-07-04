@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/href
+(uiop:define-package :webapp/html-generator/special-attributes
   (:use :common-lisp)
   (:export :parameter-name
 	   :parameter-value
 	   :href))
 
-(in-package :webapp/href)
+(in-package :webapp/html-generator/special-attributes)
 
 (defclass parameter ()
   ((name :initarg :name :reader parameter-name)
