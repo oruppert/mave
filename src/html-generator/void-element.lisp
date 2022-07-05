@@ -12,7 +12,7 @@
 
 (in-package :webapp/html-generator/void-element)
 
-(defclass void-element (abstract-element)
+(defclass void-element ()
   ((name :initarg :name :reader element-name)
    (attributes :initarg :attributes :reader element-attributes)))
 
