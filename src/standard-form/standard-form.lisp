@@ -6,7 +6,8 @@
 	:webapp/display-protocol
 	:webapp/handle-protocol
 	:webapp/html-generator/all
-	:webapp/standard-form/input-protocol)
+	:webapp/standard-form/input-protocol
+	:webapp/utilities/http-redirect)
   (:export :standard-form-slots
 	   :standard-form))
 
@@ -19,7 +20,9 @@
 (defgeneric standard-form-delete-value (object))
 
 (defclass standard-form ()
-  ((allow-delete :initarg :allow-delete :initform nil)))
+  ((allow-delete :initarg :allow-delete :initform nil)
+   (delete-redirect :initarg :delete-redirect :initform nil)
+   (submit-redirect :initarg :submit-redirect :initform nil)))
 
 (defmethod standard-form-slots (object)
   (mapcar #'closer-mop:slot-definition-name
@@ -33,16 +36,21 @@
   "Delete")
 
 (defmethod handle (object (self standard-form) (method (eql :delete)))
-  (with-slots (allow-delete) self
+  (with-slots (allow-delete delete-redirect) self
     (assert allow-delete)
-    (database-delete object)))
+    (database-delete object)
+    (when delete-redirect
+      (http-redirect delete-redirect))))
 
 (defmethod handle (object (self standard-form) (method (eql :post)))
-  (dolist (slot-name (standard-form-slots object))
-    (setf (input-value object slot-name)
-	  (hunchentoot:post-parameter
-	   (string-downcase slot-name))))
-  (database-upsert object))
+  (with-slots (submit-redirect) self
+    (dolist (slot-name (standard-form-slots object))
+      (setf (input-value object slot-name)
+	    (hunchentoot:post-parameter
+	     (string-downcase slot-name))))
+    (database-upsert object)
+    (when submit-redirect
+      (http-redirect submit-redirect))))
 
 (defmethod display (object (self standard-form))
   (with-slots (allow-delete) self
