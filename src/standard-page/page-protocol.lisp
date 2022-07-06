@@ -3,8 +3,7 @@
   (:export :page-external-scripts
 	   :page-external-styles
 	   :page-inline-style
-	   :page-inline-script
-	   :page-additional-head-elements))
+	   :page-inline-script))
 
 (in-package :webapp/standard-page/page-protocol)
 
@@ -22,8 +21,4 @@
 
 (defgeneric page-inline-script (page)
   (:documentation "Returns the scripts of the given page as a list of strings.")
-  (:method-combination append :most-specific-last))
-
-(defgeneric page-additional-head-elements (page)
-  (:documentation "Returns a list of additional html head elements.")
   (:method-combination append :most-specific-last))

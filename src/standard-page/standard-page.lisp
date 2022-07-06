@@ -59,8 +59,6 @@
 (defmethod page-inline-script append ((self standard-page))
   (values nil))
 
-(defmethod page-additional-head-elements append ((self standard-page))
-  (values nil))
 
 
 
