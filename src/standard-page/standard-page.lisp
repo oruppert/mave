@@ -1,5 +1,3 @@
-;;;; Standard Page
-
 (uiop:define-package :webapp/standard-page/standard-page
   (:use :common-lisp
 	:webapp/handle-protocol
@@ -10,18 +8,18 @@
 
 (in-package :webapp/standard-page/standard-page)
 
-;;; Class definition.
+;;;; Standard Page
 
 (defclass standard-page ()
   ((title :initarg :title)
    (doctype :initarg :doctype)))
 
-;;; Implement the handle protocol.
+;;;; Handle Protocol Implementation
 
 (defmethod handle (object (page standard-page) (method (eql :get)))
   (display object page))
 
-;;; Implement the display protocol.
+;;;; Display Protocol Implementation
 
 (defmethod display-name (object (self standard-page))
   (if (slot-boundp self 'title)
@@ -47,7 +45,7 @@
 		collect (script :src uri))
 	  (script (page-inline-script self))))))
 
-;;; Implement the page protocol. 
+;;;; Page Protocol Implementation
 
 (defmethod page-external-scripts append ((self standard-page))
   (values nil))
