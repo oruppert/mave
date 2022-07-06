@@ -22,7 +22,7 @@
 		  #+nil
 		  (html-destruct attributes/children)
 
-		  (html-destruct (alexandria:flatten attributes/children))
+		  (html-destruct (flatten attributes/children))
 		(make-instance ',class-name
 			       :name ,(string-downcase name)
 			       :attributes attributes
@@ -40,3 +40,10 @@
   a p h1 li td th tr ul div nav html head body span form link title
   main label table select button option legend section fieldset)
 
+
+(defun flatten (list)
+  (loop for item in list
+	when (atom item)
+	  collect item
+	else
+	  append (flatten item)))
