@@ -10,11 +10,12 @@
 (defclass redirect-mixin ()
   ((location :initarg :location :reader redirect-location)))
 
-(defmethod handle :around (object (self redirect-mixin) method)
+(defmethod handle :around (object (self redirect-mixin) (method (eql :post)))
   (call-next-method)
   (when (hunchentoot:within-request-p)
     (setf (hunchentoot:return-code*) 302)
     (setf (hunchentoot:header-out :location)
 	  (redirect-location self)))
   (values nil))
+
 
