@@ -13,8 +13,8 @@
 (defmethod handle :around (object (self redirect-mixin) method)
   (call-next-method)
   (when (hunchentoot:within-request-p)
-    (setf (hunchentoot:return-code*) 302
-	  (hunchentoot:header-out :location)
-	  (redirect-location self))
-    (values nil)))
+    (setf (hunchentoot:return-code*) 302)
+    (setf (hunchentoot:header-out :location)
+	  (redirect-location self)))
+  (values nil))
 
