@@ -8,9 +8,9 @@
 
 (defgeneric redirect-location (object))
 
-(defclass redirect-login () ())
+(defclass redirect-mixin () ())
 
-(defmethod handle :around (object (self redirect-login) (method (eql :post)))
+(defmethod handle :around (object (self redirect-mixin) (method (eql :post)))
   (call-next-method)
   (when (hunchentoot:within-request-p)
     (setf (hunchentoot:return-code*) 302)
