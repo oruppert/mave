@@ -1,0 +1,23 @@
+.confirmation .message:empty:after {
+    content: 'Are you sure?'
+}
+
+.confirmation .yes:empty:after {
+    content: 'Yes'
+}
+
+.confirmation .no:empty:after {
+    content: 'No'
+}
+
+.confirmation .message:lang(de):empty:after {
+    content: 'Sind Sie sicher?'
+}
+
+.confirmation .yes:lang(de):empty:after {
+    content: 'Ja'
+}
+
+.confirmation .no:lang(de):empty:after {
+    content: 'Nein'
+}
