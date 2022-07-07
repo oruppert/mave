@@ -15,10 +15,12 @@
   (:documentation "Returns a list of stylesheet uris for the given page.")
   (:method-combination append :most-specific-last))
 
+;;; XXX: rename to page-inline-styles
 (defgeneric page-inline-style (page)
   (:documentation "Returns the styles of the given page as a list of strings.")
   (:method-combination append :most-specific-last))
 
+;;; XXX: rename to page-inline-scripts
 (defgeneric page-inline-script (page)
   (:documentation "Returns the scripts of the given page as a list of strings.")
   (:method-combination append :most-specific-last))
