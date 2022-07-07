@@ -8,6 +8,16 @@
 
 (in-package :webapp/standard-page/standard-page)
 
+;;;; Request Language
+
+(defun request-language ()
+  (when (hunchentoot:within-request-p)
+    (let (r)
+      (setq r (hunchentoot:header-in* :accept-language))
+      (setq r (first (cl-ppcre:split #\; r)))
+      (setq r (first (last (cl-ppcre:split #\, r))))
+      (setq r (string-trim #(#\Space #\Tab #\Newline #\Return) r)))))
+
 ;;;; Standard Page
 
 (defclass standard-page ()
@@ -32,6 +42,7 @@
    (when (slot-boundp self 'doctype)
      (html-string (slot-value self 'doctype)))
    (html
+    :lang (request-language)
     (head
      (title (display-name object self))
      (meta :name "viewport" :content "width=device-width, initial-scale=1")
