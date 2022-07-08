@@ -21,7 +21,7 @@
 ;;;; Standard Page
 
 (defclass standard-page ()
-  ((title :initarg :title :initform nil)
+  ((title :initarg :title :initform nil :reader page-title)
    (doctype :initarg :doctype)))
 
 ;;;; Handle Protocol Implementation
@@ -32,7 +32,7 @@
 ;;;; Display Protocol Implementation
 
 (defmethod display-name (object (self standard-page))
-  (or (slot-value self 'title)
+  (or (page-title self)
       (when (next-method-p)
 	(call-next-method))))
 
