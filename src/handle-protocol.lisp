@@ -4,4 +4,4 @@
 
 (in-package :webapp/handle-protocol)
 
-(defgeneric handle (object view method))
+(defgeneric handle (object handler method))
