@@ -16,7 +16,7 @@
 
    :webapp/database/all
    :webapp/html-generator/all
-   :webapp/standard-page/all
+   :webapp/pages/all
 
 
 )

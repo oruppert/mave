@@ -3,7 +3,7 @@
 	:webapp/handle-protocol
 	:webapp/display-protocol
 	:webapp/html-generator/all
-	:webapp/standard-page/page-protocol)
+	:webapp/pages/page-protocol)
   (:export :standard-page))
 
 (in-package :webapp/pages/standard-page)
