@@ -29,6 +29,12 @@
   (:method (object slot-name)
     (slot-value object slot-name)))
 
+;;; XXX: split into insert and update-form?
+#+nil
+(defgeneric input-initial-value (object slot-name)
+  (:method (object slot-name)
+    (values nil)))
+
 (defgeneric (setf input-value) (value object slot-name)
   (:documentation
    "Sets the input value of the given object and slot-name.")

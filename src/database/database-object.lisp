@@ -14,6 +14,11 @@
 
 (defmethod slot-unbound (class (self database-object) slot-name)
   (setf (slot-value self slot-name)
+	;; XXX: this check might be not so smart:
+	;; if we make an update and insert form
+	;; instead of an upsert form, we would not
+	;; need this.  (But an input-default-value
+	;; or something)
 	(when (object-id self)
 	  (caar (postmodern:query
 		 (format nil "select ~a from ~a where id = ~a"
