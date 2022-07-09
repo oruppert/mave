@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/standard-page/bootstrap-mixin/bootstrap-mixin
+(uiop:define-package :webapp/pages/bootstrap-mixin/bootstrap-mixin
   (:use :common-lisp
-	:webapp/standard-page/page-protocol)
-  (:nicknames :webapp/standard-page/bootstrap-mixin)
+	:webapp/pages/page-protocol)
+  (:nicknames :webapp/pages/bootstrap-mixin)
   (:export :bootstrap-mixin))
 
-(in-package :webapp/standard-page/bootstrap-mixin/bootstrap-mixin)
+(in-package :webapp/pages/bootstrap-mixin/bootstrap-mixin)
 
 (defparameter *stylesheet-uri*
   "/webapp/standard-page/bootstrap-mixin/bootstrap.min.css")

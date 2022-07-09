@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/standard-page/tachyons-mixin/tachyons-mixin
+(uiop:define-package :webapp/pages/tachyons-mixin/tachyons-mixin
   (:use :common-lisp
-	:webapp/standard-page/page-protocol)
-  (:nicknames :webapp/standard-page/tachyons-mixin)
+	:webapp/pages/page-protocol)
+  (:nicknames :webapp/pages/tachyons-mixin)
   (:export :tachyons-mixin))
 
-(in-package :webapp/standard-page/tachyons-mixin/tachyons-mixin)
+(in-package :webapp/pages/tachyons-mixin/tachyons-mixin)
 
 (defparameter *uri*
   "/webapp/standard-page/tachyons-mixin/tachyons-mixin/tachyons.min.css")

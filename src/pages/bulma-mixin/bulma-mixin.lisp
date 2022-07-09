@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/standard-page/bulma-mixin/bulma-mixin
+(uiop:define-package :webapp/pages/bulma-mixin/bulma-mixin
   (:use :common-lisp
-	:webapp/standard-page/page-protocol)
-  (:nicknames :webapp/standard-page/bulma-mixin)
+	:webapp/pages/page-protocol)
+  (:nicknames :webapp/pages/bulma-mixin)
   (:export :bulma-mixin))
 
-(in-package :webapp/standard-page/bulma-mixin/bulma-mixin)
+(in-package :webapp/pages/bulma-mixin/bulma-mixin)
 
 (defparameter *uri*
   "/webapp/standard-page/bulma-mixin/bulma.min.css")

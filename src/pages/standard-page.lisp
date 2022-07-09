@@ -1,4 +1,4 @@
-(uiop:define-package :webapp/standard-page/standard-page
+(uiop:define-package :webapp/pages/standard-page
   (:use :common-lisp
 	:webapp/handle-protocol
 	:webapp/display-protocol
@@ -6,7 +6,7 @@
 	:webapp/standard-page/page-protocol)
   (:export :standard-page))
 
-(in-package :webapp/standard-page/standard-page)
+(in-package :webapp/pages/standard-page)
 
 ;;;; Request Language
 
