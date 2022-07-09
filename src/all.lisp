@@ -18,8 +18,6 @@
    :webapp/html-generator/all
    :webapp/standard-page/all
 
-   :webapp/utilities/all
-
 
 )
   (:nicknames :webapp))
