@@ -2,14 +2,29 @@
   (:use :common-lisp
 	:webapp/html-generator/print-html
 	:webapp/html-generator/void-element
-	:webapp/html-generator/parse-html-lambda-list
-	:webapp/html-generator/html-string)
-  (:export :element
+	:webapp/html-generator/html-string
+	:webapp/html-generator/flatten)
+  (:export :parse-html-lambda-list
+	   :element
 	   :body
 	   :html
 	   :style-element))
 
 (in-package :webapp/html-generator/element)
+
+(defun parse-element-argument-list (argument-list)
+  "Returns the attributes and children of the given element argument list.
+An element argument list consists of attributes and children.
+Attributes are key-value pairs, all other elements are children.  Note
+that the argument-list gets flattened before parsing.  This allows
+functions to return attributes as two element lists."
+  (loop with argument-list = (flatten argument-list)
+	while argument-list
+	for item = (pop argument-list)
+	when (keywordp item) collect item into attributes
+	and collect (pop argument-list) into attributes
+	else collect item into children
+	finally (return (values attributes children))))
 
 (defclass element (void-element)
   ((children :initarg :children :reader element-children)))
