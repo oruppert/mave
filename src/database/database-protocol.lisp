@@ -4,8 +4,7 @@
   (:use :common-lisp)
   (:export :database-insert
 	   :database-update
-	   :database-delete
-	   :database-upsert))
+	   :database-delete))
 
 (in-package :webapp/database/database-protocol)
 
@@ -17,10 +16,3 @@
 
 (defgeneric database-delete (object)
   (:documentation "Delete the given object from the database."))
-
-;;;; XXX: really needed?  What about a update-form and an
-;;;; insert form instead of a upsert-form?
-
-(defgeneric database-upsert (object)
-  (:documentation "Updates or inserts, depending on the state of object."))
-

@@ -13,18 +13,13 @@
   ((id :initarg :id :initform nil :accessor object-id)))
 
 (defmethod slot-unbound (class (self database-object) slot-name)
+  (assert (object-id self))
   (setf (slot-value self slot-name)
-	;; XXX: this check might be not so smart:
-	;; if we make an update and insert form
-	;; instead of an upsert form, we would not
-	;; need this.  (But an input-default-value
-	;; or something)
-	(when (object-id self)
-	  (caar (postmodern:query
-		 (format nil "select ~a from ~a where id = ~a"
-			 (postmodern:sql-escape slot-name)
-			 (postmodern:sql-escape (class-name class))
-			 (postmodern:sql-escape (object-id self))))))))
+	(caar (postmodern:query
+	       (format nil "select ~a from ~a where id = ~a"
+		       (postmodern:sql-escape slot-name)
+		       (postmodern:sql-escape (class-name class))
+		       (postmodern:sql-escape (object-id self)))))))
 
 (defmethod database-insert ((self database-object))
   (assert (null (object-id self)))
@@ -57,9 +52,5 @@
   (setf (object-id self) nil)
   self)
 
-(defmethod database-upsert ((self database-object))
-  (if (object-id self)
-      (database-update self)
-      (database-insert self)))
 
 
