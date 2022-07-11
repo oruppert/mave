@@ -9,7 +9,13 @@
    ;; grouping elements
    :div :span
    ;; form elements
-   :form))
+   :form
+
+
+
+
+   :section
+   :h1))
 
 (in-package :webapp/html/functions)
 
@@ -51,3 +57,9 @@
 (defun form (&rest attribtues/children)
   (make-element "form" attribtues/children))
 
+
+(defun section (&rest attributes/children)
+  (make-element "section" attributes/children))
+
+(defun h1 (&rest attributes/children)
+  (make-element "h1" attributes/children))
