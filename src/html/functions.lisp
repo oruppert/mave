@@ -1,6 +1,6 @@
-(uiop:define-package :webapp/html/html-functions
+(uiop:define-package :webapp/html/functions
   (:use :common-lisp
-	:webapp/html/print-html)
+	:webapp/html/constructors)
   (:export
    ;; structure elements
    :html :head :body
@@ -11,7 +11,7 @@
    ;; form elements
    :form))
 
-(in-package :webapp/html/html-functions)
+(in-package :webapp/html/functions)
 
 ;;;; Structure Elements
 
