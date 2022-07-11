@@ -1,2 +1,11 @@
-* Function Based Html Generator
+This directory defines a function based html generator.
+
+  - =print-html.lisp= defines the =print-html=- generic function.
+
+  - =nodes.lisp= defines the the different html nodes and how they are
+    printed.
+
+  - =constructors.lisp= defines constructor functions for these nodes.
+
+  - =functions.lisp= defines functions for the different html elements.
 
