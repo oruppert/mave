@@ -30,7 +30,7 @@ Note that the attributes and children are flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
-      (parse-element-argument-list
+      (parse-attributes/children
        (flatten attributes/children))
     (make-instance 'element
 		   :name name
@@ -43,21 +43,21 @@ Note that attributes and children are flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
-      (parse-element-argument-list
+      (parse-attributes/children
        (flatten attributes/children))
     (make-instance 'element
 		   :name name
 		   :attributes attributes
 		   :children (mapcar #'make-html-string children))))
 
-(defun parse-element-argument-list (argument-list)
+(defun parse-attributes/children (attributes/children)
   "Returns the attributes and children of the given element argument list.
 An element argument list consists of attributes and children.
 Attributes are key-value pairs, all other elements are children."
-  (loop while argument-list
-	for item = (pop argument-list)
+  (loop while attributes/children
+	for item = (pop attributes/children)
 	when (keywordp item) collect item into attributes
-	and collect (pop argument-list) into attributes
+	and collect (pop attributes/children) into attributes
 	else collect item into children
 	finally (return (values attributes children))))
 
