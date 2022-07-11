@@ -1,49 +1,53 @@
-;;;; Html Functions
-
-(uiop:define-package :webapp/html-generator/html-functions
+(uiop:define-package :webapp/html/html-functions
   (:use :common-lisp
-	:webapp/html-generator/html-destruct
-	:webapp/html-generator/html-elements))
+	:webapp/html/print-html)
+  (:export
+   ;; structure elements
+   :html :head :body
+   ;; table elements
+   :table :tr :th :td
+   ;; grouping elements
+   :div :span
+   ;; form elements
+   :form))
 
-(in-package :webapp/html-generator/html-functions)
+(in-package :webapp/html/html-functions)
 
-;;; XXX: is it possible to call alexandria:flatten
-;;; before destructing the arguments?  It would
-;;; allow functions to return attributes:
-;;;
-;;;    (href "/url" param1) => (list :href "/url?param1=")
-;;;
-;;;    (class :foo :bar :baz) => (list :class "foo bar baz")
+;;;; Structure Elements
 
-(defmacro define-html-functions (class-name &rest names)
-  (flet ((expand-symbol (name)
-	   `(defun ,name (&rest attributes/children)
-	      (multiple-value-bind (attributes children)
-		  #+nil
-		  (html-destruct attributes/children)
+(defun html (&rest attributes/children)
+  (make-element "html" attributes/children))
 
-		  (html-destruct (flatten attributes/children))
-		(make-instance ',class-name
-			       :name ,(string-downcase name)
-			       :attributes attributes
-			       :children children))))
-	 (export-symbol (name)
-	   `(export ',name)))
-    `(progn ,@(mapcar #'expand-symbol names)
-	    ,@(mapcar #'export-symbol names))))
+(defun head (&rest attributes/children)
+  (make-element "head" attributes/children))
 
-(define-html-functions void-element br hr meta input img)
+(defun body (&rest attributes/children)
+  (make-element "head" attributes/children))
 
-(define-html-functions text-element style script)
+;;;; Table Elements
 
-(define-html-functions standard-element
-  a p h1 li td th tr ul div nav html head body span form link title
-  main label table select button option legend section fieldset)
+(defun table (&rest attributes/children)
+  (make-element "table" attributes/children))
 
+(defun tr (&rest attributes/children)
+  (make-element "tr" attributes/children))
 
-(defun flatten (list)
-  (loop for item in list
-	when (atom item)
-	  collect item
-	else
-	  append (flatten item)))
+(defun th (&rest attributes/children)
+  (make-element "th" attributes/children))
+
+(defun td (&rest attributes/children)
+  (make-element "td" attributes/children))
+
+;;;; Grouping Elements
+
+(defun div (&rest attributes/children)
+  (make-element "div" attributes/children))
+
+(defun span (&rest attributes/children)
+  (make-element "span" attributes/children))
+
+;;;; Form Elements
+
+(defun form (&rest attribtues/children)
+  (make-element "form" attribtues/children))
+

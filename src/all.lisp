@@ -15,7 +15,8 @@
    :webapp/handle-protocol
 
    :webapp/database/all
-   :webapp/html-generator/all
+   :webapp/html/all
+
    :webapp/pages/all
 
 

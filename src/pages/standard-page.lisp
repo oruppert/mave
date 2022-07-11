@@ -2,7 +2,7 @@
   (:use :common-lisp
 	:webapp/handle-protocol
 	:webapp/display-protocol
-	:webapp/html-generator/all
+	:webapp/html/all
 	:webapp/pages/page-protocol)
   (:export :standard-page))
 
