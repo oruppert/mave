@@ -7,7 +7,7 @@
 
 (in-package :webapp/html/nodes)
 
-;;;; Html Nodes
+;;;; Nodes
 
 (defclass node () ())
 
@@ -17,12 +17,16 @@
 (defmethod print-html :after ((self node) stream)
   (fresh-line stream))
 
+;;;; Html String
+
 (defclass html-string (node)
   ((string :initarg :string)))
 
 (defmethod print-html ((self html-string) stream)
   (with-slots (string) self
     (write-string string stream)))
+
+;;;; Void Element
 
 (defclass void-element (node)
   ((name :initarg :name)
@@ -31,6 +35,8 @@
 (defmethod print-html ((self void-element) stream)
   (with-slots (name attributes) self
     (print-opening-tag name attributes stream)))
+
+;;;; Element
 
 (defclass element (node)
   ((name :initarg :name)
@@ -44,7 +50,7 @@
       (print-html child stream))
     (print-closing-tag name stream)))
 
-;;;; Html Print Functions
+;;;; Printing Functions
 
 (defun print-opening-tag (name attributes stream)
   (check-type name string)

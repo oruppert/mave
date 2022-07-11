@@ -72,7 +72,7 @@ The actual source code is divided into the following files:
 
   - The print-html.lisp file defines the print-html generic function.
 
-  - The nodes.lisp file defines the the different html nodes and how
+  - The nodes.lisp file defines the different html nodes and how
     they are printed.
 
   - The constructors.lisp file defines constructor functions for these
