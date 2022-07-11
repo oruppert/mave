@@ -1,14 +1,9 @@
 (uiop:define-package :webapp/html-generator/print-html
     (:use :common-lisp)
-  (:export :print-html-to-string
-	   :print-html))
+  (:export :print-html
+	   :print-html-to-string))
 
 (in-package :webapp/html-generator/print-html)
-
-(defun print-html-to-string (&rest objects)
-  (with-output-to-string (stream)
-    (dolist (object objects)
-      (print-html object stream))))
 
 (defgeneric print-html (object stream)
   (:method (object stream)
@@ -27,3 +22,8 @@
 	(#\& (write-string "&amp;" stream))
 	(#\" (write-string "&quot;" stream))
 	(t (write-char char stream))))))
+
+(defun print-html-to-string (&rest objects)
+  (with-output-to-string (stream)
+    (dolist (object objects)
+      (print-html object stream))))
