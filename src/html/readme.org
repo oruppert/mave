@@ -50,18 +50,37 @@ CL-USER> (print-html-to-string
 "
 #+end_src
 
-The source is divided into the following files:
+The arguments to the individual html functions are flattend.  That
+means it is possible to write functions that return attributes:
 
-  - The print-html.lisp file defines the =print-html=- generic
-    function.
+#+begin_src lisp
+CL-USER> (defun style (&rest styles)
+	   (list :style (format nil "~(~{~a: ~a~^; ~}~)" styles)))
+STYLE
+CL-USER> (print-html-to-string
+	  (div (style :display :flex)
+	       (div "Column 1")
+	       (div "Column 2")))
+"<div style=\"display: flex\">
+<div>Column 1</div>
+<div>Column 2</div>
+</div>
+"
+#+end_src
+
+The actual source code is divided into the following files:
+
+  - The print-html.lisp file defines the print-html generic function.
 
   - The nodes.lisp file defines the the different html nodes and how
     they are printed.
 
-  - constructors.lisp file defines constructor functions for these
+  - The constructors.lisp file defines constructor functions for these
     nodes.
 
   - The functions.lisp defines the actual functions for the different
     html elements.
+
+
 
 
