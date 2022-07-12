@@ -24,6 +24,8 @@ element lists."
 		 :name name
 		 :attribtues (flatten attributes)))
 
+;;;; XXX: rename attributes/children to element-argument-list
+
 (defun make-element (name attributes/children)
   "Returns an element for the given name, attributes and children.
 Note that the attributes and children are flattened.  This allows
