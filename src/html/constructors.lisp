@@ -17,7 +17,7 @@ A html string is used to emit unescaped html."
 (defun make-void-element (name attributes)
   "Returns a void element for the given name and attributes.
 A void element does not have any children.  Note that the attributes
-are flattened.  This allows functions to return attributes as two
+get flattened.  This allows functions to return attributes as two
 element lists."
   (check-type name string)
   (make-instance 'void-element
@@ -26,7 +26,7 @@ element lists."
 
 (defun make-element (name element-argument-list)
   "Returns an element for the given name, attributes and children.
-Note that the attributes and children are flattened.  This allows
+Note that the element-argument-list gets flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
@@ -39,7 +39,7 @@ functions to return attributes as two element lists."
 
 (defun make-string-element (name element-argument-list)
   "Returns an element which children consists solely of unescaped strings.
-Note that attributes and children are flattened.  This allows
+Note that the element-argument-list gets flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
