@@ -1,0 +1,68 @@
+This html generator differs from most html generator libraries for
+common lisp in that it uses functions for creating html elements
+instead of macros.  Usage is super simple:
+
+#+begin_src lisp
+CL-USER> (use-package :webapp)
+T
+CL-USER> (let ((title "Title <>"))
+           (html
+	     (body
+	       (section
+	         (h1 title)))))
+#<WEBAPP/HTML/PRINT-HTML::ELEMENT {1003FAA053}>
+CL-USER> (print-html-to-string *)
+"<html>
+<head>
+<section>
+<h1>Title &lt;&gt;</h1>
+</section>
+</head>
+</html>
+"
+#+end_src lisp
+
+Html elements are simple standard-instances and can be used as return
+values or function arguments.  Note that all strings are escaped by
+default.  If you want to create an unescaped html string use the
+make-html-string function:
+
+#+begin_src lisp
+CL-USER> (print-html-to-string
+	  (make-html-string "<>&uuml;"))
+"<>&uuml;
+"
+#+end_src
+
+Element attributes are key-value pairs:
+
+#+begin_src lisp
+CL-USER> (print-html-to-string
+	  (html
+	   (body :style "font-family: sans-serif"
+		 (h1 "Some heading"))))
+"<html>
+<head style=\"font-family: sans-serif\">
+<h1>Some heading</h1>
+</head>
+</html>
+"
+#+end_src
+
+The arguments to the individual html functions are flattend.  That
+means it is possible to write functions that return attributes:
+
+#+begin_src lisp
+CL-USER> (defun style (&rest styles)
+	   (list :style (format nil "~(~{~a: ~a~^; ~}~)" styles)))
+STYLE
+CL-USER> (print-html-to-string
+	  (div (style :display :flex)
+	       (div "Column 1")
+	       (div "Column 2")))
+"<div style=\"display: flex\">
+<div>Column 1</div>
+<div>Column 2</div>
+</div>
+"
+#+end_src
