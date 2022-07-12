@@ -12,6 +12,8 @@
   `(call-method ,(car methods)
 		,(cdr methods)))
 
+;;; XXX: should the display function take handler object parameters?
+
 (defgeneric display (object view)
   (:method-combination primary-only :most-specific-last))
 
