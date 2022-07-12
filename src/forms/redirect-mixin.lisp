@@ -10,7 +10,7 @@
 
 (defclass redirect-mixin () ())
 
-(defmethod handle :around (object (self redirect-mixin) (method (eql :post)))
+(defmethod handle :around ((self redirect-mixin) object (method (eql :post)))
   (call-next-method)
   (when (hunchentoot:within-request-p)
     (setf (hunchentoot:return-code*) 302)
