@@ -9,7 +9,7 @@
 (in-package :webapp/html/constructors)
 
 (defun make-html-string (string)
-  "Returns a html string for the given string.
+  "Returns a html-string for the given string.
 A html string is used to emit unescaped html."
   (check-type string string)
   (make-instance 'html-string :string string))
@@ -24,42 +24,40 @@ element lists."
 		 :name name
 		 :attribtues (flatten attributes)))
 
-;;;; XXX: rename attributes/children to element-argument-list
-
-(defun make-element (name attributes/children)
+(defun make-element (name element-argument-list)
   "Returns an element for the given name, attributes and children.
 Note that the attributes and children are flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
-      (parse-attributes/children
-       (flatten attributes/children))
+      (parse-element-argument-list
+       (flatten element-argument-list))
     (make-instance 'element
 		   :name name
 		   :attributes attributes
 		   :children children)))
 
-(defun make-string-element (name attributes/children)
+(defun make-string-element (name element-argument-list)
   "Returns an element which children consists solely of unescaped strings.
 Note that attributes and children are flattened.  This allows
 functions to return attributes as two element lists."
   (check-type name string)
   (multiple-value-bind (attributes children)
-      (parse-attributes/children
-       (flatten attributes/children))
+      (parse-element-argument-list
+       (flatten element-argument-list))
     (make-instance 'element
 		   :name name
 		   :attributes attributes
 		   :children (mapcar #'make-html-string children))))
 
-(defun parse-attributes/children (attributes/children)
-  "Returns the attributes and children of the given element argument list.
-An element argument list consists of attributes and children.
+(defun parse-element-argument-list (element-argument-list)
+  "Returns the attributes and children of the given element-argument-list.
+An element-argument-list consists of attributes and children.
 Attributes are key-value pairs, all other elements are children."
-  (loop while attributes/children
-	for item = (pop attributes/children)
+  (loop while element-argument-list
+	for item = (pop element-argument-list)
 	when (keywordp item) collect item into attributes
-	and collect (pop attributes/children) into attributes
+	and collect (pop element-argument-list) into attributes
 	else collect item into children
 	finally (return (values attributes children))))
 
