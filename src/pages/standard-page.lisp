@@ -39,7 +39,7 @@
 (defmethod display ((self standard-page) object)
   (print-html-to-string
    (when (slot-boundp self 'doctype)
-     (html-string (slot-value self 'doctype)))
+     (make-html-string (slot-value self 'doctype)))
    (html
     :lang (request-language)
     (head
