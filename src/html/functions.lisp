@@ -13,7 +13,7 @@
    ;; grouping elements
    :div :span
    ;; form elements
-   :form :button :input :select :option
+   :form :button :input :select :option :label
    ;; semantic elements
    :section :h1
    ;; other elements
@@ -89,6 +89,9 @@
 
 (defun option (&rest attributes/children)
   (make-element "option" attributes/children))
+
+(defun label (&rest attributes/children)
+  (make-element "label" attributes/children))
 
 ;;;; Semantic Elements
 
