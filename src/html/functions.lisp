@@ -3,17 +3,18 @@
 	:webapp/html/constructors)
   (:export
    ;; structure elements
-   :html :head :body
+   :html :head :body :title
+   ;; head elements
+   :title :meta :link
+   ;; string elements
+   :style-element :script-element
    ;; table elements
    :table :tr :th :td
    ;; grouping elements
    :div :span
    ;; form elements
    :form
-
-
-
-
+   ;; semantic elements
    :section
    :h1))
 
@@ -29,6 +30,25 @@
 
 (defun body (&rest attributes/children)
   (make-element "head" attributes/children))
+
+;;;; Head Elements
+
+(defun title (&rest attributes/children)
+  (make-element "title" attributes/children))
+
+(defun meta (&rest attributes)
+  (make-void-element "meta" attributes))
+
+(defun link (&rest attributes)
+  (make-void-element "link" attributes))
+
+;;;; String Elements
+
+(defun style-element (&rest attributes/children)
+  (make-string-element "style" attributes/children))
+
+(defun script-element (&rest attributes/children)
+  (make-string-element "script" attributes/children))
 
 ;;;; Table Elements
 
@@ -57,6 +77,7 @@
 (defun form (&rest attribtues/children)
   (make-element "form" attribtues/children))
 
+;;;; Semantic Elements
 
 (defun section (&rest attributes/children)
   (make-element "section" attributes/children))
