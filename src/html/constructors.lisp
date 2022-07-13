@@ -22,7 +22,7 @@ element lists."
   (check-type name string)
   (make-instance 'void-element
 		 :name name
-		 :attribtues (flatten attributes)))
+		 :attributes (flatten attributes)))
 
 (defun make-element (name element-argument-list)
   "Returns an element for the given name, attributes and children.
