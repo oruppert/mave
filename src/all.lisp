@@ -18,6 +18,7 @@
    :webapp/html/all
 
    :webapp/pages/all
+   :webapp/forms/all
 
 
 )
