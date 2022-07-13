@@ -26,24 +26,24 @@
 
 ;;;; Handle Protocol Implementation
 
-(defmethod handle (object (page standard-page) (method (eql :get)))
-  (display object page))
+(defmethod handle ((page standard-page) object (method (eql :get)))
+  (display page object))
 
 ;;;; Display Protocol Implementation
 
-(defmethod display-name (object (self standard-page))
+(defmethod display-name ((self standard-page) object)
   (or (page-title self)
       (when (next-method-p)
 	(call-next-method))))
 
-(defmethod display (object (self standard-page))
+(defmethod display ((self standard-page) object)
   (print-html-to-string
    (when (slot-boundp self 'doctype)
      (html-string (slot-value self 'doctype)))
    (html
     :lang (request-language)
     (head
-     (title (display-name object self))
+     (title (display-name self object))
      (meta :name "viewport" :content "width=device-width, initial-scale=1")
      (loop for uri in (page-external-styles self)
 	   collect (link :rel :stylesheet :href uri))
