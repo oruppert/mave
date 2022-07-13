@@ -9,10 +9,10 @@
 (in-package :webapp/database/database-protocol)
 
 (defgeneric database-insert (object)
-  (:documentation "Insert the given object into the database."))
+  (:documentation "Inserts the given object into the database."))
 
 (defgeneric database-update (object)
-  (:documentation "Update the database from the given object."))
+  (:documentation "Updates the database from the given object."))
 
 (defgeneric database-delete (object)
-  (:documentation "Delete the given object from the database."))
+  (:documentation "Deletes the given object from the database."))
