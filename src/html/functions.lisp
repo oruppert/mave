@@ -13,10 +13,9 @@
    ;; grouping elements
    :div :span
    ;; form elements
-   :form
+   :form :button :input :select :option
    ;; semantic elements
-   :section
-   :h1))
+   :section :h1))
 
 (in-package :webapp/html/functions)
 
@@ -76,6 +75,18 @@
 
 (defun form (&rest attribtues/children)
   (make-element "form" attribtues/children))
+
+(defun button (&rest attributes/children)
+  (make-element "button" attributes/children))
+
+(defun input (&rest attributes)
+  (make-void-element "input" attributes))
+
+(defun select (&rest attributes/children)
+  (make-element "select" attributes/children))
+
+(defun option (&rest attributes/children)
+  (make-element "option" attributes/children))
 
 ;;;; Semantic Elements
 
