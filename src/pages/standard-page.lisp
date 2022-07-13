@@ -47,12 +47,12 @@
      (meta :name "viewport" :content "width=device-width, initial-scale=1")
      (loop for uri in (page-external-styles self)
 	   collect (link :rel :stylesheet :href uri))
-     (style (page-inline-style self)))
+     (style-element (page-inline-style self)))
     (body (when (next-method-p)
 	    (call-next-method))
 	  (loop for uri in (page-external-scripts self)
-		collect (script :src uri))
-	  (script (page-inline-script self))))))
+		collect (script-element :src uri))
+	  (script-element (page-inline-script self))))))
 
 ;;;; Page Protocol Implementation
 
