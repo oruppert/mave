@@ -34,7 +34,7 @@
 	(p (button :class :yes :name "answer" :value "yes")
 	   (button :class :no :name "answer" :value "no"))))
 
-(defmethod page-inline-style append ((self confirmation-view))
+(defmethod page-inline-styles append ((self confirmation-view))
   (list #.(uiop:read-file-string
 	   (make-pathname :type "css"
 			  :defaults *compile-file-truename*))))

@@ -2,8 +2,8 @@
     (:use :common-lisp)
   (:export :page-external-scripts
 	   :page-external-styles
-	   :page-inline-style
-	   :page-inline-script))
+	   :page-inline-styles
+	   :page-inline-scripts))
 
 (in-package :webapp/pages/page-protocol)
 
@@ -15,12 +15,10 @@
   (:documentation "Returns a list of stylesheet uris for the given page.")
   (:method-combination append :most-specific-last))
 
-;;; XXX: rename to page-inline-styles
-(defgeneric page-inline-style (page)
+(defgeneric page-inline-styles (page)
   (:documentation "Returns the styles of the given page as a list of strings.")
   (:method-combination append :most-specific-last))
 
-;;; XXX: rename to page-inline-scripts
-(defgeneric page-inline-script (page)
+(defgeneric page-inline-scripts (page)
   (:documentation "Returns the scripts of the given page as a list of strings.")
   (:method-combination append :most-specific-last))

@@ -76,7 +76,7 @@
 				   (render-input object slot-name)))))
 	(p (button :class :submit))))
 
-(defmethod page-inline-style append ((self upsert-view))
+(defmethod page-inline-styles append ((self upsert-view))
   (list #.(uiop:read-file-string
 	   (make-pathname :type "css"
 			  :defaults *compile-file-truename*))))
