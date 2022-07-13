@@ -15,7 +15,9 @@
    ;; form elements
    :form :button :input :select :option
    ;; semantic elements
-   :section :h1))
+   :section :h1
+   ;; other elements
+   :a :p))
 
 (in-package :webapp/html/functions)
 
@@ -95,3 +97,11 @@
 
 (defun h1 (&rest attributes/children)
   (make-element "h1" attributes/children))
+
+;;;; Other Elements
+
+(defun a (&rest attributes/children)
+  (make-element "a" attributes/children))
+
+(defun p (&rest attributes/children)
+  (make-element "p" attributes/children))
