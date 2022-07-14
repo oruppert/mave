@@ -1,15 +1,15 @@
-(uiop:define-package :webapp/forms/confirmation-form
+(uiop:define-package :mave/forms/confirmation-form
   (:use :common-lisp
-	:webapp/handle-protocol
-	:webapp/html-generator/all
-	:webapp/standard-page/page-protocol
-	:webapp/forms/redirect-mixin)
+	:mave/handle-protocol
+	:mave/html-generator/all
+	:mave/standard-page/page-protocol
+	:mave/forms/redirect-mixin)
   (:export :confirmed-p
 	   :confirmation-controller
 	   :confirmation-view
 	   :confirmation-form))
 
-(in-package :webapp/forms/confirmation-form)
+(in-package :mave/forms/confirmation-form)
 
 (defgeneric confirmed-p (object))
 

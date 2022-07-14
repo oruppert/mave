@@ -1,11 +1,11 @@
 ;;;; Display Protocol
 
-(uiop:define-package :webapp/display-protocol
+(uiop:define-package :mave/display-protocol
     (:use :common-lisp)
   (:export :display
 	   :display-name))
 
-(in-package :webapp/display-protocol)
+(in-package :mave/display-protocol)
 
 (define-method-combination primary-only (&optional (order :most-specific-first))
   ((methods () :order order))

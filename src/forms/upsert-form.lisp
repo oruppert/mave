@@ -1,11 +1,11 @@
-(uiop:define-package :webapp/forms/upsert-form
+(uiop:define-package :mave/forms/upsert-form
   (:use :common-lisp
-	:webapp/handle-protocol
-	:webapp/display-protocol
-	:webapp/database/all
-	:webapp/html-generator/all
-	:webapp/standard-page/page-protocol
-	:webapp/forms/redirect-mixin)
+	:mave/handle-protocol
+	:mave/display-protocol
+	:mave/database/all
+	:mave/html-generator/all
+	:mave/standard-page/page-protocol
+	:mave/forms/redirect-mixin)
   (:export :input-label
 	   :input-value
 	   :render-input
@@ -13,7 +13,7 @@
 	   :upsert-view
 	   :upsert-form))
 
-(in-package :webapp/forms/upsert-form)
+(in-package :mave/forms/upsert-form)
 
 ;;;; Input Protocol
 

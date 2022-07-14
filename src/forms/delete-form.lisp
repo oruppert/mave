@@ -1,11 +1,11 @@
-(uiop:define-package :webapp/forms/delete-form
+(uiop:define-package :mave/forms/delete-form
   (:use :common-lisp
-	:webapp/handle-protocol
-	:webapp/database/database-protocol
-	:webapp/forms/confirmation-form)
+	:mave/handle-protocol
+	:mave/database/database-protocol
+	:mave/forms/confirmation-form)
   (:export :delete-form))
 
-(in-package :webapp/forms/delete-form)
+(in-package :mave/forms/delete-form)
 
 (defclass delete-form (confirmation-form) ())
 

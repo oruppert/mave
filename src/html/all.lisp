@@ -1,7 +1,7 @@
-(uiop:define-package :webapp/html/all
-  (:nicknames :webapp/html)
-  (:use-reexport :webapp/html/print-html
-		 :webapp/html/constructors
-		 :webapp/html/functions
+(uiop:define-package :mave/html/all
+  (:nicknames :mave/html)
+  (:use-reexport :mave/html/print-html
+		 :mave/html/constructors
+		 :mave/html/functions
 		 #+nil
-		 :webapp/html/href))
+		 :mave/html/href))

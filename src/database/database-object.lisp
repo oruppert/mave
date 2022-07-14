@@ -1,13 +1,13 @@
 ;;;; Database Object
 
-(uiop:define-package :webapp/database/database-object
+(uiop:define-package :mave/database/database-object
   (:use :common-lisp
-	:webapp/database/database-protocol
-	:webapp/database/slot-utilities)
+	:mave/database/database-protocol
+	:mave/database/slot-utilities)
   (:export :database-object
 	   :object-id))
 
-(in-package :webapp/database/database-object)
+(in-package :mave/database/database-object)
 
 (defclass database-object ()
   ((id :initarg :id :initform nil :accessor object-id)))

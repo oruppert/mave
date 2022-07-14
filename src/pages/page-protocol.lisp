@@ -1,11 +1,11 @@
-(uiop:define-package :webapp/pages/page-protocol
+(uiop:define-package :mave/pages/page-protocol
     (:use :common-lisp)
   (:export :page-external-scripts
 	   :page-external-styles
 	   :page-inline-styles
 	   :page-inline-scripts))
 
-(in-package :webapp/pages/page-protocol)
+(in-package :mave/pages/page-protocol)
 
 (defgeneric page-external-scripts (page)
   (:documentation "Returns a list of script uris for the given page.")

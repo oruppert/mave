@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/pages/all
-  (:nicknames :webapp/pages)
-  (:use-reexport :webapp/pages/page-protocol
-		 :webapp/pages/standard-page
+(uiop:define-package :mave/pages/all
+  (:nicknames :mave/pages)
+  (:use-reexport :mave/pages/page-protocol
+		 :mave/pages/standard-page
 		 ;; mixins
-		 :webapp/pages/tachyons-mixin/tachyons-mixin
-		 :webapp/pages/bootstrap-mixin/bootstrap-mixin
-		 :webapp/pages/bulma-mixin/bulma-mixin
-		 :webapp/pages/water-mixin/water-mixin))
+		 :mave/pages/tachyons-mixin/tachyons-mixin
+		 :mave/pages/bootstrap-mixin/bootstrap-mixin
+		 :mave/pages/bulma-mixin/bulma-mixin
+		 :mave/pages/water-mixin/water-mixin))
 

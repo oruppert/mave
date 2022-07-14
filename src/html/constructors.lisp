@@ -1,12 +1,12 @@
-(uiop:define-package :webapp/html/constructors
+(uiop:define-package :mave/html/constructors
     (:use :common-lisp
-	  :webapp/html/nodes)
+	  :mave/html/nodes)
   (:export :make-html-string
 	   :make-void-element
 	   :make-element
 	   :make-string-element))
 
-(in-package :webapp/html/constructors)
+(in-package :mave/html/constructors)
 
 (defun make-html-string (string)
   "Returns a html-string for the given string.

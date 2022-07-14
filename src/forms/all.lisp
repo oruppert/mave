@@ -1,2 +1,2 @@
-(uiop:define-package :webapp/forms/all
-    (:use-reexport :webapp/forms/redirect-mixin))
+(uiop:define-package :mave/forms/all
+    (:use-reexport :mave/forms/redirect-mixin))

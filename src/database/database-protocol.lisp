@@ -1,12 +1,12 @@
 ;;;; Database Protocol
 
-(uiop:define-package :webapp/database/database-protocol
+(uiop:define-package :mave/database/database-protocol
   (:use :common-lisp)
   (:export :database-insert
 	   :database-update
 	   :database-delete))
 
-(in-package :webapp/database/database-protocol)
+(in-package :mave/database/database-protocol)
 
 (defgeneric database-insert (object)
   (:documentation "Inserts the given object into the database."))

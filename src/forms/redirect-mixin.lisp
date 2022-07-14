@@ -1,10 +1,10 @@
-(uiop:define-package :webapp/forms/redirect-mixin
+(uiop:define-package :mave/forms/redirect-mixin
   (:use :common-lisp
-	:webapp/handle-protocol)
+	:mave/handle-protocol)
   (:export :redirect-location
 	   :redirect-mixin))
 
-(in-package :webapp/forms/redirect-mixin)
+(in-package :mave/forms/redirect-mixin)
 
 (defgeneric redirect-location (object))
 

@@ -1,16 +1,16 @@
-(uiop:define-package :webapp/pages/bootstrap-mixin/bootstrap-mixin
+(uiop:define-package :mave/pages/bootstrap-mixin/bootstrap-mixin
   (:use :common-lisp
-	:webapp/pages/page-protocol)
-  (:nicknames :webapp/pages/bootstrap-mixin)
+	:mave/pages/page-protocol)
+  (:nicknames :mave/pages/bootstrap-mixin)
   (:export :bootstrap-mixin))
 
-(in-package :webapp/pages/bootstrap-mixin/bootstrap-mixin)
+(in-package :mave/pages/bootstrap-mixin/bootstrap-mixin)
 
 (defparameter *stylesheet-uri*
-  "/webapp/standard-page/bootstrap-mixin/bootstrap.min.css")
+  "/mave/standard-page/bootstrap-mixin/bootstrap.min.css")
 
 (defparameter *javascript-uri*
-  "/webapp/standard-page/bootstrap-mixin/bootstrap.bundle.min.js")
+  "/mave/standard-page/bootstrap-mixin/bootstrap.bundle.min.js")
 
 (hunchentoot:define-easy-handler (stylesheet-handler :uri *stylesheet-uri*) ()
   (setf (hunchentoot:content-type*) "text/css")

@@ -1,6 +1,6 @@
-(uiop:define-package :webapp/html/functions
+(uiop:define-package :mave/html/functions
   (:use :common-lisp
-	:webapp/html/constructors)
+	:mave/html/constructors)
   (:export
    ;; structure elements
    :html :head :body :title
@@ -19,7 +19,7 @@
    ;; other elements
    :a :p))
 
-(in-package :webapp/html/functions)
+(in-package :mave/html/functions)
 
 ;;;; Structure Elements
 

@@ -1,12 +1,12 @@
-(uiop:define-package :webapp/pages/standard-page
+(uiop:define-package :mave/pages/standard-page
   (:use :common-lisp
-	:webapp/handle-protocol
-	:webapp/display-protocol
-	:webapp/html/all
-	:webapp/pages/page-protocol)
+	:mave/handle-protocol
+	:mave/display-protocol
+	:mave/html/all
+	:mave/pages/page-protocol)
   (:export :standard-page))
 
-(in-package :webapp/pages/standard-page)
+(in-package :mave/pages/standard-page)
 
 ;;;; Request Language
 

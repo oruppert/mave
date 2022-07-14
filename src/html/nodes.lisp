@@ -1,11 +1,11 @@
-(uiop:define-package :webapp/html/nodes
+(uiop:define-package :mave/html/nodes
   (:use :common-lisp
-	:webapp/html/print-html)
+	:mave/html/print-html)
   (:export :html-string
 	   :void-element
 	   :element))
 
-(in-package :webapp/html/nodes)
+(in-package :mave/html/nodes)
 
 ;;;; Nodes
 

@@ -1,16 +1,16 @@
-(uiop:define-package :webapp/pages/water-mixin/water-mixin
+(uiop:define-package :mave/pages/water-mixin/water-mixin
   (:use :common-lisp
-	:webapp/pages/page-protocol)
-  (:nicknames :webapp/pages/water-mixin)
+	:mave/pages/page-protocol)
+  (:nicknames :mave/pages/water-mixin)
   (:export :water-mixin
 	   :water-dark-mixin
 	   :water-light-mixin))
 
-(in-package :webapp/pages/water-mixin/water-mixin)
+(in-package :mave/pages/water-mixin/water-mixin)
 
-(defparameter *water-css-uri* "/webapp/standard-page/water-mixin/water.css")
-(defparameter *water-dark-css-uri* "/webapp/standard-page/water-mixin/dark.css")
-(defparameter *water-light-css-uri* "/webapp/standard-page/water-mixin/light.css")
+(defparameter *water-css-uri* "/mave/standard-page/water-mixin/water.css")
+(defparameter *water-dark-css-uri* "/mave/standard-page/water-mixin/dark.css")
+(defparameter *water-light-css-uri* "/mave/standard-page/water-mixin/light.css")
 
 (defclass water-mixin () ())
 (defclass water-dark-mixin () ())

@@ -1,9 +1,9 @@
-(uiop:define-package :webapp/html/print-html
+(uiop:define-package :mave/html/print-html
     (:use :common-lisp)
   (:export :print-html
 	   :print-html-to-string))
 
-(in-package :webapp/html/print-html)
+(in-package :mave/html/print-html)
 
 (defgeneric print-html (object stream)
   (:documentation

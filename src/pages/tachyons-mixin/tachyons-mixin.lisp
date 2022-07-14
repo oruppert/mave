@@ -1,13 +1,13 @@
-(uiop:define-package :webapp/pages/tachyons-mixin/tachyons-mixin
+(uiop:define-package :mave/pages/tachyons-mixin/tachyons-mixin
   (:use :common-lisp
-	:webapp/pages/page-protocol)
-  (:nicknames :webapp/pages/tachyons-mixin)
+	:mave/pages/page-protocol)
+  (:nicknames :mave/pages/tachyons-mixin)
   (:export :tachyons-mixin))
 
-(in-package :webapp/pages/tachyons-mixin/tachyons-mixin)
+(in-package :mave/pages/tachyons-mixin/tachyons-mixin)
 
 (defparameter *uri*
-  "/webapp/standard-page/tachyons-mixin/tachyons-mixin/tachyons.min.css")
+  "/mave/standard-page/tachyons-mixin/tachyons-mixin/tachyons.min.css")
 
 (hunchentoot:define-easy-handler (style-handler :uri *uri*) ()
   (setf (hunchentoot:content-type*) "text/css")

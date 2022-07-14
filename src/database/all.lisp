@@ -1,5 +1,5 @@
-(uiop:define-package :webapp/database/all
-  (:nicknames :webapp/database)
-  (:use-reexport :webapp/database/database-protocol
-		 :webapp/database/database-object))
+(uiop:define-package :mave/database/all
+  (:nicknames :mave/database)
+  (:use-reexport :mave/database/database-protocol
+		 :mave/database/database-object))
 
