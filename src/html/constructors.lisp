@@ -48,9 +48,7 @@ functions to return attributes as two element lists."
     (make-instance 'element
 		   :name name
 		   :attributes attributes
-		   :children (loop for child in children
-				when child
-				collect (make-html-string child)))))
+		   :children (mapcar #'make-html-string children))))
 
 (defun parse-element-argument-list (element-argument-list)
   "Returns the attributes and children of the given element-argument-list.
