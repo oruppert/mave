@@ -9,7 +9,7 @@
 
 (defclass delete-form (confirmation-form) ())
 
-(defmethod handle (object (self delete-form) (method (eql :post)))
+(defmethod handle ((self delete-form) object (method (eql :post)))
   (when (confirmed-p self)
     (database-delete object)))
 
