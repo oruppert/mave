@@ -3,14 +3,14 @@ common lisp in that it uses functions for creating html elements
 instead of macros.  Usage is super simple:
 
 #+begin_src lisp
-CL-USER> (use-package :webapp)
+CL-USER> (use-package :mave)
 T
 CL-USER> (let ((title "Title <>"))
            (html
 	     (body
 	       (section
 	         (h1 title)))))
-#<WEBAPP/HTML/PRINT-HTML::ELEMENT {1003FAA053}>
+#<MAVE/HTML/PRINT-HTML::ELEMENT {1003FAA053}>
 CL-USER> (print-html-to-string *)
 "<html>
 <head>
