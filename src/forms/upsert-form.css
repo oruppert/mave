@@ -1,7 +1,0 @@
-.upsert .submit:empty:after {
-    content: 'Submit'
-}
-
-.upsert .submit:lang(de):empty:after {
-    content: 'Senden'
-}
