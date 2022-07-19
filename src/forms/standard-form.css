@@ -1,0 +1,7 @@
+.standard-form .submit:empty:after {
+    content: 'Submit'
+}
+
+.standard-form .submit:lang(de):empty:after {
+    content: 'Senden'
+} 
