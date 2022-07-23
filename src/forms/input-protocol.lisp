@@ -38,3 +38,10 @@
   (:method (object slot-name)
     (declare (ignore object slot-name))
     (values nil)))
+
+#+nil
+(defgeneric render-input (object slot-name value)
+  (mave/html/all:input :name (input-name object slot-name)
+		       :value value))
+
+
