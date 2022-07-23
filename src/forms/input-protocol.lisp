@@ -1,11 +1,18 @@
 (uiop:define-package :mave/forms/input-protocol
     (:use :common-lisp)
-  (:export :input-name
+  (:export :input-slots
+	   :input-name
 	   :input-label
 	   :input-value
 	   :input-default-value))
 
 (in-package :mave/forms/input-protocol)
+
+(defgeneric input-slots (object)
+  (:method (object)
+    (mapcar #'closer-mop:slot-definition-name
+	    (closer-mop:class-direct-slots
+	     (class-of object)))))
 
 (defgeneric input-name (object slot-name)
   (:method (object slot-name)
