@@ -1,2 +1,4 @@
 (uiop:define-package :mave/forms/all
-    (:use-reexport :mave/forms/redirect-mixin))
+    (:use-reexport :mave/forms/input-protocol
+		   :mave/forms/redirect-mixin))
+
